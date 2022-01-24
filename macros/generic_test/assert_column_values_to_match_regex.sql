@@ -1,5 +1,5 @@
 {% test assert_column_values_to_match_regex(model, column_name, regex_expr) %}
-  {{ return(adapter.dispatch('test_column_values_to_match_regex')(model, column_name, regex_expr)) }}
+  {{ return(adapter.dispatch('test_column_values_to_match_regex', 'dbt_resto')(model, column_name, regex_expr)) }}
 {% endtest %}
 
 {% macro default__test_column_values_to_match_regex(model, column_name, regex_expr) %}
