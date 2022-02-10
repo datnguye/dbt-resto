@@ -1,6 +1,8 @@
 # dbt-resto
 This is dbt package for everyone
-- Default DBMS: Snowflake
+- Default warehouse: Snowflake
+- Supported warehouses:
+    - Snowflake
 
 ## Local development
 - Move to repo directory:
