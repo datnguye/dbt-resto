@@ -1,0 +1,16 @@
+
+integration_tests:
+  outputs:
+    dev:
+      type: snowflake
+      threads: 16
+      account: [account id]
+      user: [username]
+      password: [password]
+      role: transformer
+      database: analytics
+      warehouse: transforming
+      schema: dbt_[user_name] # e.g. dbt_alice
+      client_session_keep_alive: False
+  target: dev
+
