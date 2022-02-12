@@ -11,3 +11,7 @@ clean-targets:
   - "dbt_packages"
 macro-paths: ["macros"]
 log-path: "logs"
+
+vars:
+  table_suffix: ""
+  num2words_schema: "dbtresto"
