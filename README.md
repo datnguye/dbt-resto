@@ -3,6 +3,7 @@ This is dbt package for everyone
 - Default warehouse: Snowflake
 - Supported warehouses:
     - Snowflake
+    - SQL Server 
 
 ## Developer's Guide
 ### Prequesites
