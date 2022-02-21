@@ -6,8 +6,8 @@
   {%- if execute -%}
     {% set compile_sql -%}
       CREATE SCHEMA IF NOT EXISTS {{var('num2words_schema', 'dbtresto')}};
-      {{compile_money_to_words_en()}}
-      {#-- {{compile_money_to_words_vi()}} #}
+      {{ dbt_resto.compile_money_to_words_en() }}
+      {#-- {{ dbt_resto.compile_money_to_words_vi() }} #}
     {% endset %}
 
     {% do run_query(compile_sql) %}
