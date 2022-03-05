@@ -31,5 +31,6 @@ poethepoet = "^0.12.3"
 requires = ["poetry-core>=1.0.0"]
 
 [tool.poe.tasks]
-precommit = {"shell" = "pre-commit install --install-hooks && pre-commit install --hook-type commit-msg"}
-dbt_resto_test = {"shell" = "dbt run --profiles-dir .dbt"}
+hook_commit         = "pre-commit install --install-hooks"
+hook_commit_msg     = "pre-commit install --hook-type commit-msg"
+test                = "dbt run --profiles-dir .dbt"
