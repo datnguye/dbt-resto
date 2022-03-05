@@ -1,6 +1,8 @@
-{#
-	--Suffix the table name with your configured variable `table_suffix`
-#}
+{#/*
+	Suffix the table name with your configured variable `table_suffix`
+  Usage:
+    {{ config(alias=get_table_alias(this)) }}
+*/#}
 
 {% macro get_table_alias(relation) %}
   {{ adapter.dispatch('get_table_alias', 'dbt_resto') (relation) }}

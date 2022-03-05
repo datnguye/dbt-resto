@@ -17,18 +17,5 @@ clean-targets:
     - "target"
     - "dbt_modules"
 
-
-
-quoting:
-  database: false
-  identifier: false
-  schema: false
-
 models:
   transient: true
-
-on-run-end:
-  - "{{ grant_select_on_schemas(schemas, 'reporter') }}"
-  - "{{ grant_select_on_schemas(schemas, 'transformer') }}"
-
-
