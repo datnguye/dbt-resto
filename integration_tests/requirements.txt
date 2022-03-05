@@ -1,2 +1,3 @@
-dbt-core==1.0.1
+dbt-core==1.0.3
 dbt-snowflake==1.0.0
+dbt-sqlserver==1.0.0

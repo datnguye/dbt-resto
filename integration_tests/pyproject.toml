@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "dbt_resto_tests"
+version = "0.1.0"
+description = "Integration tests for dbt_resto package"
+authors = ["Dat Nguyen <datnguyen.it09@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+    "Development Status :: In Development",
+    "Intended Audience :: Data Engineering",
+    "Topic :: Software Development :: Integration Tests",
+    "License :: OSI Approved :: MIT",
+    "Programming Language :: Python :: 3.9.6"
+]
+keywords = ["data engineering", "analytics engineering", "dbt", 'ETL', "data modelling"]
+homepage = "https://github.com/datnguye"
+documentation = "https://github.com/datnguye"
+repository = "https://github.com/datnguye/dbt-resto"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+dbt-core = "1.0.3"
+dbt-snowflake = "1.0.0"
+dbt-sqlserver = "1.0.0"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.17.0"
+poethepoet = "^0.12.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poe.tasks]
+precommit = {"shell" = "pre-commit install --install-hooks && pre-commit install --hook-type commit-msg"}
+dbt_resto_test = {"shell" = "dbt run --profiles-dir .dbt"}
