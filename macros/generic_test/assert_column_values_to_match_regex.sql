@@ -7,7 +7,7 @@
         columns:
           - name: column_name
             tests:
-              - assert_column_values_to_match_regex:
+              - dbt_resto.assert_column_values_to_match_regex:
                   regex_expr: '[a-zA-Z]' # matching text only
 */#}
 

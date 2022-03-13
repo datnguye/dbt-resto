@@ -1,3 +1,2 @@
 packages:
-  - package: https://github.com/datnguye/dbt-resto
-    revision: master
+  - local: ../

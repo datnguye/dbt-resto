@@ -13,19 +13,19 @@ DROP FUNCTION IF EXISTS {{var('num2words_schema', 'dbtresto')}}.MoneyToWords_EN
 GO
 CREATE FUNCTION {{var('num2words_schema', 'dbtresto')}}.MoneyToWords_EN(@Number DECIMAL(17,2))
 RETURNS NVARCHAR(MAX)
-AS 
+AS
 BEGIN
 	SET @Number = ABS(@Number)
 	DECLARE @vResult NVARCHAR(MAX) = ''
 
 	-- pre-data
 	DECLARE @tDict		TABLE (Num INT NOT NULL, Nam NVARCHAR(255) NOT NULL)
-	INSERT 
+	INSERT
 	INTO	@tDict (Num, Nam)
 	VALUES	(1,'one'),(2,'two'),(3,'three'),(4,'four'),(5,'five'),(6,'six'),(7,'seven'),(8,'eight'),(9,'nine'),
-			(10,'ten'),(11,'eleven'),(12,'twelve'),(13,'thirteen'),(14,'fourteen'),(15,'fifteen'),(16,'sixteen'),(17,'seventeen'),(18,'eighteen'),(19,'nineteen'),
-			(20,'twenty'),(30,'thirty'),(40,'fourty'),(50,'fifty'),(60,'sixty'),(70,'seventy'),(80,'eighty'),(90,'ninety')
-	
+					(10,'ten'),(11,'eleven'),(12,'twelve'),(13,'thirteen'),(14,'fourteen'),(15,'fifteen'),(16,'sixteen'),(17,'seventeen'),(18,'eighteen'),(19,'nineteen'),
+					(20,'twenty'),(30,'thirty'),(40,'fourty'),(50,'fifty'),(60,'sixty'),(70,'seventy'),(80,'eighty'),(90,'ninety')
+
 	DECLARE @ZeroWord		NVARCHAR(10) = 'zero'
 	DECLARE @DotWord		NVARCHAR(10) = 'point'
 	DECLARE @AndWord		NVARCHAR(10) = 'and'
@@ -35,7 +35,7 @@ BEGIN
 	DECLARE @BillionWord	NVARCHAR(10) = 'billion'
 	DECLARE @TrillionWord	NVARCHAR(10) = 'trillion'
 
-	-- decimal number	
+	-- decimal number
 	DECLARE @vDecimalNum INT = (@Number - FLOOR(@Number)) * 100
 	DECLARE @vLoop SMALLINT = CONVERT(SMALLINT, SQL_VARIANT_PROPERTY(@Number, 'Scale'))
 	DECLARE @vSubDecimalResult	NVARCHAR(MAX) = N''
@@ -54,7 +54,7 @@ BEGIN
 			SET @vLoop = @vLoop - 1
 		END
 	END
-	
+
 	-- main number
 	SET @Number = FLOOR(@Number)
 	IF @Number = 0
@@ -66,7 +66,7 @@ BEGIN
 		DECLARE @v00Num DECIMAL(15,0) = 0
 		DECLARE @v0Num DECIMAL(15,0) = 0
 		DECLARE @vIndex SMALLINT = 0
-		
+
 		WHILE @Number > 0
 		BEGIN
 			-- from right to left: take first 000
@@ -77,8 +77,8 @@ BEGIN
 			BEGIN
 				SET @vSubResult = ''
 			END
-			ELSE 
-			BEGIN 
+			ELSE
+			BEGIN
 				--00
 				IF @v00Num < 20
 				BEGIN
@@ -87,24 +87,24 @@ BEGIN
 					IF @v00Num < 10 AND @v00Num > 0 AND (@v000Num > 99 OR FLOOR(@Number / 1000) > 0)--e.g 1 001: 1000 AND 1; or 201 000: (200 AND 1) 000
 						SET @vSubResult = FORMATMESSAGE('%s %s', @AndWord, @vSubResult)
 				END
-				ELSE 
+				ELSE
 				BEGIN
 					-- greater than or equal 20
-					SELECT @vSubResult = Nam FROM @tDict WHERE Num = @v0Num 
+					SELECT @vSubResult = Nam FROM @tDict WHERE Num = @v0Num
 					SET @v00Num = FLOOR(@v00Num/10)*10
-					SELECT @vSubResult = FORMATMESSAGE('%s-%s', Nam, @vSubResult) FROM @tDict WHERE Num = @v00Num 
+					SELECT @vSubResult = FORMATMESSAGE('%s-%s', Nam, @vSubResult) FROM @tDict WHERE Num = @v00Num
 				END
 
 				--000
 				IF @v000Num > 99
 					SELECT @vSubResult = FORMATMESSAGE('%s %s %s', Nam, @HundredWord, @vSubResult) FROM @tDict WHERE Num = CONVERT(INT,@v000Num / 100)
 			END
-			
+
 			--000xxx
 			IF @vSubResult <> ''
 			BEGIN
 
-				SET @vSubResult = FORMATMESSAGE('%s %s', @vSubResult, CASE 
+				SET @vSubResult = FORMATMESSAGE('%s %s', @vSubResult, CASE
 																		WHEN @vIndex=1 THEN @ThousandWord
 																		WHEN @vIndex=2 THEN @MillionWord
 																		WHEN @vIndex=3 THEN @BillionWord
@@ -124,7 +124,7 @@ BEGIN
 	END
 
 	SET @vResult = FORMATMESSAGE('%s %s', TRIM(@vResult), COALESCE(@DotWord + ' ' + NULLIF(@vSubDecimalResult,''), ''))
-	
+
 	-- result
     RETURN @vResult
 END
