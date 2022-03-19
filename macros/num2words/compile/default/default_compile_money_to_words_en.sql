@@ -4,7 +4,7 @@
 
 {% macro default__compile_money_to_words_en() %}
 
-create or replace function MoneyToWords_EN (money double)
+create or replace function {{var('num2words_schema', 'dbtresto')}}.MoneyToWords_EN (money double)
 returns varchar
 language javascript
 strict
