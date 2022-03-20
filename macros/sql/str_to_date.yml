@@ -1,0 +1,25 @@
+version: 2
+
+macros:
+  - name: str_to_date
+    description: |
+      Convert a string formatted in a specific pattern to the date value.
+    docs:
+      show: true
+    arguments:
+      - name: column_name
+        type: string
+        description: Column name which holds the date string
+      - name: pattern
+        type: string
+        description: The date pattern. Default to yyyymmdd.
+
+  - name: default__str_to_date
+    docs:
+      show: false
+  - name: sqlserver__str_to_date
+    docs:
+      show: false
+  - name: sqlserver__get_format_number
+    docs:
+      show: false

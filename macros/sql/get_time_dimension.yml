@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: get_time_dimension
+    description: |
+      Prepare the select statement of all columns required in a time dimension table.
+    docs:
+      show: true
+    arguments:
+      - name: level
+        type: string
+        description: Level of 'hour' or 'minute'
+
+  - name: default__get_time_dimension
+    docs:
+      show: false
+  - name: sqlserver__get_time_dimension
+    docs:
+      show: false

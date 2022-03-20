@@ -1,5 +1,3 @@
-{# level = 'hour', 'minute' #}
-
 {% macro get_base_times(level='hour', base='1970-01-01') %}
     {{ adapter.dispatch('get_base_times', 'dbt_resto') (level, base) }}
 {% endmacro %}

@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: generate_schema_name
+    description: |
+      Override the schema strategy. MAKE-A-COPY to your local project under `your-project/macros/` directory.
+      If the model has no config `schema` then it will use target.schema to be its schema name, else will use the exact schema name configured.
+    docs:
+      show: true
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: Default dbt argument - the configed schema of the model
+      - name: node
+        description: Default dbt argument - not used

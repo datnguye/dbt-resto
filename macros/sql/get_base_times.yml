@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: get_base_times
+    description: |
+      Prepare the select statement of the datetime values in each level = hour, minute.
+    docs:
+      show: true
+    arguments:
+      - name: level
+        type: string
+        description: Level of 'hour' or 'minute'
+      - name: base
+        type: string
+        description: Base date value where the time part will be concatenated into
+
+  - name: default__get_base_times
+    docs:
+      show: false

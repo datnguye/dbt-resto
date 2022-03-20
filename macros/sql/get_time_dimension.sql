@@ -1,6 +1,5 @@
-{# level = 'hour', 'minute' #}
 {% macro get_time_dimension(level='hour') %}
-  {{ adapter.dispatch('  get_time_dimension', 'dbt_resto') (level) }}
+  {{ adapter.dispatch('get_time_dimension', 'dbt_resto') (level) }}
 {% endmacro %}
 
 {% macro default__get_time_dimension(level) %}

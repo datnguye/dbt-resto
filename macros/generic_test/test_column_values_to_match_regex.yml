@@ -1,0 +1,14 @@
+version: 2
+
+tests:
+  - name: test_column_values_to_match_regex
+    description: |
+      Generic test function to check if a column value is matched to a regular experssion.
+
+      Currently support Snowflake only.
+    docs:
+      show: true
+
+  - name: default__test_column_values_to_match_regex
+    docs:
+      show: false
