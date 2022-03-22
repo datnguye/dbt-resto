@@ -4,7 +4,17 @@
 
 {% macro default__get_base_times(level, base) %}
 
-  {%- if level == 'minute' %}
+  {%- if level == 'second' %}
+
+    {# 1 day = 86400 seconds #}
+    {%- for value in range(0, 86400) %}
+      select dateadd(second, value, base) as time_value
+      {%- if not loop.last %}
+        union all
+      {%- endif %}
+    {%- endfor %}
+
+  {%- else if level == 'minute' %}
 
     {# 1 day = 1440 minutes #}
     {%- for value in range(0, 1440) %}
@@ -14,7 +24,7 @@
       {%- endif %}
     {%- endfor %}
 
-  {%- else%}
+  {%- else %}
 
     {# 1 day = 24 hours #}
     {%- for value in range(0, 24) %}
