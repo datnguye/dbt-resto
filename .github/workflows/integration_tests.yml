@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: integration_tests
 
 on:
@@ -32,7 +30,7 @@ jobs:
           mkdir ~/.dbt > /dev/null
           cp integration_tests/profiles/profiles.yml ~/.dbt/profiles.yml
 
-      - name: Install dbt packages
+      - name: Build and test dbt package
         working-directory: ./integration_tests
         run: |
           poetry run dbt deps
