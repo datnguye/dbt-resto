@@ -20,6 +20,11 @@ See [integration_tests](./integration_tests/README.md)
 ### money_to_words ([source](/macros/num2words/money_to_words.sql))
   Convert a number (money) to words e.g. 2000 = two thousand
 
+  ** Require **:
+  ```
+  dbt run-operation compile_money_to_words
+  ```
+
   Usage:
   ```
   select {{ dbt_resto.money_to_words('my_column_name', 'en') }} as my_column_name_in_words
@@ -52,7 +57,7 @@ See [integration_tests](./integration_tests/README.md)
   Usage:
   ```
   # models/my_model.yml
-  {{ get_time_dimension() }}
+  {{ dbt_resto.get_time_dimension() }}
   ```
 
 ### str_to_date ([source](/macros/sql/str_to_date.sql))
@@ -60,13 +65,13 @@ See [integration_tests](./integration_tests/README.md)
 
   Usage:
   ```
-  select   {{ str_to_date(column) }} as date_column
+  select   {{ dbt_resto.str_to_date(column) }} as date_column
   from     table
   ```
 
 
 ## Generic Tests:
-### test_column_values_to_match_regex ([source](/macros/generic_test/test_column_values_to_match_regex.sql))
+### if_column_value_to_match_regex ([source](/macros/generic_test/if_column_value_to_match_regex.sql))
   Generic test function to check if a column value is matched to a regular experssion.
 
   Currently support Snowflake only.
@@ -78,6 +83,6 @@ See [integration_tests](./integration_tests/README.md)
       columns:
         - name: column_name
           tests:
-            - dbt_resto.test_column_values_to_match_regex:
+            - dbt_resto.if_column_value_to_match_regex:
                 regex_expr: '[a-zA-Z]' # matching text only
   ```
