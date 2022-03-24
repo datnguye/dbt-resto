@@ -1,0 +1,22 @@
+version: 2
+
+macros:
+  - name: datepart
+    description: |
+      Get date part
+    docs:
+      show: true
+    arguments:
+      - name: column
+        type: string
+        description: Datetime column
+      - name: part
+        type: string
+        description: Date part name to extract e.g. day, month, year, etc
+
+  - name: default__datepart
+    docs:
+      show: false
+  - name: sqlserver__datepart
+    docs:
+      show: false

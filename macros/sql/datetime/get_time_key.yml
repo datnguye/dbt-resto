@@ -1,0 +1,25 @@
+version: 2
+
+macros:
+  - name: get_time_key
+    description: |
+      Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 09:27:33
+    docs:
+      show: true
+    arguments:
+      - name: column
+        type: string
+        description: Datetime column
+      - name: parts
+        type: list ['hour', 'minute', 'second']
+        description: Indicates to place 00 where the part is missing
+      - name: h24
+        type: boolean
+        description: Indicates if the hour is in format of 24h. Default is true
+
+  - name: default__get_time_key
+    docs:
+      show: false
+  - name: sqlserver__get_time_key
+    docs:
+      show: false
