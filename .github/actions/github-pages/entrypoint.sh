@@ -9,7 +9,7 @@ REPOSITORY="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITOR
 git init
 git remote add origin $REPOSITORY
 git checkout -b gh-pages
-git fetch origin gh-pages
+git fetch origin gh-pages > /dev/null
 git reset --soft origin/gh-pages
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
