@@ -32,6 +32,19 @@ jobs:
           mkdir ~/.dbt > /dev/null
           cp integration_tests/profiles/profiles.yml ~/.dbt/profiles.yml
 
+      - name: Install dbt packages
+        working-directory: ./integration_tests
+        run: |
+          poetry run dbt deps
+          poetry run dbt docs generate
+        env:
+          SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+          SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+          SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+          SNOWFLAKE_TEST_ROLE: SYSADMIN
+          SNOWFLAKE_TEST_DATABASE: DEMO
+          SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
+
       - name: Save Build Artifact
         uses: actions/upload-artifact@v1
         with:
@@ -54,7 +67,6 @@ jobs:
       - name: Execute test - Snowflake
         working-directory: ./integration_tests
         run: |
-          poetry run dbt deps
           poetry run dbt run --target snowflake
           poetry run dbt test --target snowflake
         env:
@@ -65,27 +77,10 @@ jobs:
           SNOWFLAKE_TEST_DATABASE: DEMO
           SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
 
-      - name: Generate dbt docs
-        working-directory: ./integration_tests
-        run:
-          poetry run dbt docs generate
-        env:
-          SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-          SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-          SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-          SNOWFLAKE_TEST_ROLE: SYSADMIN
-          SNOWFLAKE_TEST_DATABASE: DEMO
-          SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
-
-      - name: Save Test Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: test-artifact
-          path: public
-
   publish:
     runs-on: ubuntu-latest
     needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
     steps:
       - uses: actions/checkout@v3
@@ -93,7 +88,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v1
         with:
-          name: test-artifact
+          name: build-artifact
           path: public
 
       - name: Deploy to Github Pages
