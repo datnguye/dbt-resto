@@ -36,6 +36,7 @@ jobs:
       - name: Execute test - Snowflake
         working-directory: ./integration_tests
         run: |
+          poetry run dbt deps
           poetry run dbt run --target snowflake
           poetry run dbt test --target snowflake
         env:
@@ -49,8 +50,9 @@ jobs:
       # - name: Execute test - SQLSERVER
       #   working-directory: ./integration_tests
       #   run: |
-      #     poetry run dbt run --target snowflake
-      #     poetry run dbt test --target snowflake
+      #     poetry run dbt deps
+      #     poetry run dbt run --target sqlserver
+      #     poetry run dbt test --target sqlserver
       #   env:
       #     SQLSERVER_HOST: ${{ secrets.SQLSERVER_HOST }}
       #     SQLSERVER_PORT: 1433
