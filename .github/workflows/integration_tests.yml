@@ -33,6 +33,7 @@ jobs:
         run: |
           poetry run dbt deps
           poetry run dbt docs generate
+          poetry run dbt run-operation compile_money_to_words
           poetry run dbt run --target snowflake
           poetry run dbt test --target snowflake
         env:
