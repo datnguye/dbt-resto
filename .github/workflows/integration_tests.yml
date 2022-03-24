@@ -65,9 +65,3 @@ jobs:
         run: |
           poetry run dbt docs generate
 
-      -name: Publish github page 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
-        with:
-          branch: main
-          folder: docs
-
