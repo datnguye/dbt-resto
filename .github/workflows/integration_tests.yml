@@ -60,8 +60,14 @@ jobs:
       #     SQLSERVER_PASSWORD: ${{ secrets.SQLSERVER_PASSWORD }}
       #     SQLSERVER_DATABASE: DEMO
 
-      - name: Publish docs
+      - name: Generating docs
         working-directory: ./integration_tests
         run: |
           poetry run dbt docs generate
-          echo "<< Publish to somewhere here >>"
+
+      -name: Publish github page 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: main
+          folder: docs
+
