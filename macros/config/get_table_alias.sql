@@ -3,7 +3,5 @@
 {% endmacro %}
 
 {% macro default__get_table_alias(relation) -%}
-
   {{ relation.table ~ var('table_suffix','') }}
-
 {%- endmacro %}

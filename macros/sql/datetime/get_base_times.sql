@@ -14,7 +14,7 @@
       {%- endif %}
     {%- endfor %}
 
-  {%- else if level == 'minute' %}
+  {%- elif level == 'minute' %}
 
     {# 1 day = 1440 minutes #}
     {%- for value in range(0, 1440) %}

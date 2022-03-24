@@ -6,9 +6,9 @@
 
   {%- set pattern -%}
     {%- for part in parts -%}
-      {%- if part = 'hour' -%} 'HH' ~ ({%- if h24 -%} '24' {%- else -%} '' {%- endif -%}) {%- else -%} '00' {%- endif -%}
-    ~ {%- if part = 'hour' -%} 'MI' {%- else -%} '00' {%- endif -%}
-    ~ {%- if part = 'hour' -%} 'SS' {%- else -%} '00' {%- endif -%}
+      {%- if part == 'hour' -%} 'HH' ~ ({%- if h24 -%} '24' {%- else -%} '' {%- endif -%}) {%- else -%} '00' {%- endif -%}
+    ~ {%- if part == 'hour' -%} 'MI' {%- else -%} '00' {%- endif -%}
+    ~ {%- if part == 'hour' -%} 'SS' {%- else -%} '00' {%- endif -%}
     {%- endfor -%}
   {%- endset -%}
   to_varchar({{ column }}, '{{ pattern }}')
@@ -19,9 +19,9 @@
 
   {%- set pattern -%}
     {%- for part in parts -%}
-      {%- if part = 'hour' -%} ({%- if h24 -%} 'HH' {%- else -%} 'hh' {%- endif -%}) {%- else -%} '00' {%- endif -%}
-    ~ {%- if part = 'hour' -%} 'mm' {%- else -%} '00' {%- endif -%}
-    ~ {%- if part = 'hour' -%} 'ss' {%- else -%} '00' {%- endif -%}
+      {%- if part == 'hour' -%} ({%- if h24 -%} 'HH' {%- else -%} 'hh' {%- endif -%}) {%- else -%} '00' {%- endif -%}
+    ~ {%- if part == 'hour' -%} 'mm' {%- else -%} '00' {%- endif -%}
+    ~ {%- if part == 'hour' -%} 'ss' {%- else -%} '00' {%- endif -%}
     {%- endfor -%}
   {%- endset -%}
   format({{ column }}, '{{ pattern }}')

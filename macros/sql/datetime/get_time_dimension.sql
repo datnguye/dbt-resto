@@ -35,7 +35,7 @@ select    time_value,--string of HH:MM:SS
             end
           ) as hour_name, --string of HH:00:00 AM/PM
           cast({{ dbt_resto.datepart('time_value', 'hour') }} as {{ dbt_resto.type_int() }}) as hour24_number,
-          {{ dbt_resto.get_time_key('time_value', ['hour']]) }} as hour24_name, --string of HH:00:00
+          {{ dbt_resto.get_time_key('time_value', ['hour']) }} as hour24_name, --string of HH:00:00
 
           {%- if level == 'minute' %}
 
