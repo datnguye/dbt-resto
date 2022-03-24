@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: integration_tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          
+      - name: install dbt
+        run: |
+          cd integration_tests
+          python -m pip install poetry
+          python -m poetry install --no-dev
+          
+      - name: setup profiles
+        run: |
+          mkdir ~/.dbt > dev/null
+          cp integration_tests/profiles/profiles.yml ~/.dbt/profiles.yml
+          
+      - name: run test
+        run: |
+          dbt run
+          dbt test
