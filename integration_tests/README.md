@@ -1,9 +1,11 @@
 # Test suite of dbt_resto package
-Once adding new macro(s), please also create a test here
+Once adding new macro(s) in dbt_resto package, please also create a test in this project.
 
 ### Prequesites
 - Python 3.9.6
 - virtualenv `python -m pip install virtualenv --upgrade`
+
+  OR: poetry `python -m pip install poetry --upgrade`
 
 
 ### Setup local enviroment - with `poetry`
@@ -36,11 +38,17 @@ Once adding new macro(s), please also create a test here
     - sqlserver: 1.0.0 - Up to date!
   ```
 
-- See your target profile in [profiles.yml](./.dbt/profiles.yml), and set the enviroment variables appropriately
+- See your target profile in [profiles.yml](./profiles/profiles.yml), and set the enviroment variables appropriately.
+
+  Copy the `profiles.yml` to your .dbt directory under User one:
+  ```
+  Linux: ~/.dbt
+  Windows: %userprofile%/.dbt
+  ```
 
 - Check if you're ready now:
   ```
-  dbt debug --profiles-dir .dbt
+  dbt debug
   ```
 
 ### Setup local enviroment - with `virtualenv`
@@ -77,9 +85,15 @@ Once adding new macro(s), please also create a test here
     - sqlserver: 1.0.0 - Up to date!
   ```
 
-- See your target profile in [profiles.yml](./.dbt/profiles.yml), and set the enviroment variables appropriately
+- See your target profile in [profiles.yml](./profiles/profiles.yml), and set the enviroment variables appropriately.
+
+  Copy the `profiles.yml` to your .dbt directory under User one:
+  ```
+  Linux: ~/.dbt
+  Windows: %userprofile%/.dbt
+  ```
 
 - Check if you're ready now:
   ```
-  dbt debug --profiles-dir .dbt
+  dbt debug
   ```
