@@ -69,7 +69,7 @@ See [integration_tests](./integration_tests/README.md)
   ```
 
 ### get_time_key ([source](/macros/sql/get_time_key.sql))
-  Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 09:27:33
+  Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 092733
 
   Usage:
   ```

@@ -3,7 +3,7 @@ version: 2
 macros:
   - name: get_time_key
     description: |
-      Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 09:27:33
+      Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 092733
     docs:
       show: true
     arguments:
