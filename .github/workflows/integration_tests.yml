@@ -33,14 +33,12 @@ jobs:
           mkdir ~/.dbt > /dev/null
           cp integration_tests/profiles/profiles.yml ~/.dbt/profiles.yml
 
-      - name: Execute test
+      - name: Execute test - Snowflake
         run: |
-          cd integration_tests
-          dbt run
-          dbt test
+          poetry run dbt run --target snowflake
+          poetry run dbt test --target snowflake
 
       - name: Publish docs
         run: |
-          cd integration_tests
-          dbt docs generate
+          poetry run dbt docs generate
           echo "<< Publish to somewhere here >>"
