@@ -34,11 +34,13 @@ jobs:
           cp integration_tests/profiles/profiles.yml ~/.dbt/profiles.yml
 
       - name: Execute test - Snowflake
+        working-directory: ./integration_tests
         run: |
           poetry run dbt run --target snowflake
           poetry run dbt test --target snowflake
 
       - name: Publish docs
+        working-directory: ./integration_tests
         run: |
           poetry run dbt docs generate
           echo "<< Publish to somewhere here >>"
