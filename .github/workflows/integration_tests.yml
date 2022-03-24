@@ -46,6 +46,18 @@ jobs:
           SNOWFLAKE_TEST_DATABASE: DEMO
           SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
 
+      # - name: Execute test - SQLSERVER
+      #   working-directory: ./integration_tests
+      #   run: |
+      #     poetry run dbt run --target snowflake
+      #     poetry run dbt test --target snowflake
+      #   env:
+      #     SQLSERVER_HOST: ${{ secrets.SQLSERVER_HOST }}
+      #     SQLSERVER_PORT: 1433
+      #     SQLSERVER_USER: ${{ secrets.SQLSERVER_USER }}
+      #     SQLSERVER_PASSWORD: ${{ secrets.SQLSERVER_PASSWORD }}
+      #     SQLSERVER_DATABASE: DEMO
+
       - name: Publish docs
         working-directory: ./integration_tests
         run: |
