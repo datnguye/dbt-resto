@@ -3,7 +3,19 @@ version: 2
 macros:
   - name: datepart
     description: |
-      Get date part
+      Get date part.
+
+      Currently supporting the list of date parts:
+        * year
+        * month
+        * day
+        * dayofweek
+        * dayofyear (date first = 1-Monday)
+        * week
+        * quarter
+        * hour
+        * minute
+        * second
     docs:
       show: true
     arguments:

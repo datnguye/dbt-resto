@@ -10,6 +10,13 @@
 
 {% macro sqlserver__datepart(column, part) %}
 
-  datepart({{ part }}, {{ column }})
+  {%- set mapped_part = part -%}
+  {%- if part == 'dayofweek' -%}
+    {%- set mapped_part = 'weekday' -%}
+  {%- endif -%}
+  {%- if part == 'week' -%}
+    {%- set mapped_part = 'iso_week' -%}
+  {%- endif -%}
+  datepart({{ mapped_part }}, {{ column }})
 
 {% endmacro %}

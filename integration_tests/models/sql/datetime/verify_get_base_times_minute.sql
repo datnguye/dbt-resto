@@ -1,0 +1,1 @@
+{{ dbt_resto.get_base_times(level='minute') }}

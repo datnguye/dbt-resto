@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: verify_generate_schema_name
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'actual = expected'

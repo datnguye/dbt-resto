@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: verify_datepart
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'actual = expected'
+  - name: verify_get_base_times_hour
+    columns:
+      - name: time_value
+        tests:
+          - unique
+          - not_null
+  - name: verify_get_base_times_minute
+    columns:
+      - name: time_value
+        tests:
+          - unique
+          - not_null
+  - name: verify_get_base_times_second
+    columns:
+      - name: time_value
+        tests:
+          - unique
+          - not_null
