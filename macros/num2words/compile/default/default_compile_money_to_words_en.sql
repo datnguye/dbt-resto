@@ -28,7 +28,7 @@ $$
   let BillionWord = 'billion'
   let TrillionWord = 'trillion'
 
-  //decimal number
+  //--decimal number
   let vDecimalNum = Math.round((Number - Math.floor(Number)) * 100);
   let vLoop = 2;
   let vSubDecimalResult = ''
@@ -46,7 +46,7 @@ $$
     }
   }
 
-  //main number
+  //--main number
   Number = Number.toFixed(0)
   if (Number == 0){
     Result = ZeroWord
@@ -59,7 +59,7 @@ $$
     let vIndex = 0
 
     while (Number > 0){
-      // from right to left: take first 000
+      //-- from right to left: take first 000
       v000Num = Number % 1000
       v00Num = v000Num % 100
       v0Num = v00Num % 10
@@ -67,16 +67,16 @@ $$
         vSubResult = ''
       }
       else{
-        //00
+        //--00
         if (v00Num < 20){
-          // less than 20
+          //-- less than 20
           vSubResult = tDict[v00Num]
           if (v00Num < 10 && v00Num > 0 && (v000Num > 99 || Math.floor(Number / 1000) > 0)){//e.g 1 001: 1000 AND 1; or 201 000: (200 AND 1) 000
             vSubResult = AndWord + ' ' + vSubResult
           }
         }
         else {
-          // greater than or equal 20
+          //-- greater than or equal 20
           vSubResult = tDict[v0Num]
           v00Num = Math.round(Math.floor(v00Num/10)*10)
           vSubResult = tDict[v00Num] + (
@@ -84,13 +84,13 @@ $$
           )
         }
 
-        //000
+        //--000
         if (v000Num > 99){
           vSubResult = tDict[Math.round(v000Num / 100)] + ' ' + HundredWord + ' ' + vSubResult
         }
       }
 
-      //000xxx
+      //--000xxx
       if (vSubResult != ''){
         vSubResult = vSubResult + ' '
                     + (vIndex == 1 ? ThousandWord : (
@@ -104,7 +104,7 @@ $$
         vResult = vSubResult + ' ' + vResult
       }
 
-      // next 000 (to left)
+      //-- next 000 (to left)
       vIndex = vIndex + 1
       Number = Math.round(Math.floor(Number / 1000))
     }
