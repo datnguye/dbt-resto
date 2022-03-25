@@ -38,7 +38,7 @@ See [integration_tests](./integration_tests/README.md)
 
   If the model has no config `schema` then it will use target.schema to be its schema name, else will use the exact schema name configured.
 
-### datepart ([source](/macros/sql/datepart.sql))
+### datepart ([source](/macros/sql/datetime/datepart.sql))
   Get date part
 
   Usage:
@@ -46,7 +46,7 @@ See [integration_tests](./integration_tests/README.md)
   select {{ dbt_resto.datepart('column', 'second') }}
   ```
 
-### get_base_times ([source](/macros/sql/get_base_times.sql))
+### get_base_times ([source](/macros/sql/datetime/get_base_times.sql))
   Prepare the select statement of the datetime values in each level = hour, minute.
 
   Usage:
@@ -62,7 +62,7 @@ See [integration_tests](./integration_tests/README.md)
   select * from base_times;
   ```
 
-### get_time_dimension ([source](/macros/sql/get_time_dimension.sql))
+### get_time_dimension ([source](/macros/sql/datetime/get_time_dimension.sql))
   Prepare the select statement of all columns required in a time dimension table.
 
   Usage:
@@ -71,7 +71,7 @@ See [integration_tests](./integration_tests/README.md)
   {{ dbt_resto.get_time_dimension() }}
   ```
 
-### get_time_key ([source](/macros/sql/get_time_key.sql))
+### get_time_key ([source](/macros/sql/datetime/get_time_key.sql))
   Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 092733
 
   Usage:
@@ -79,7 +79,7 @@ See [integration_tests](./integration_tests/README.md)
   select {{ dbt_resto.get_time_key('column', parts=['hour','minute','second'], h24=True) }}
   ```
 
-### str_to_date ([source](/macros/sql/str_to_date.sql))
+### str_to_date ([source](/macros/sql/datetime/str_to_date.sql))
   Convert a string formatted in a specific pattern to the date value.
 
   Usage:
