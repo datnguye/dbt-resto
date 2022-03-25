@@ -3,14 +3,16 @@
 {% endmacro %}
 
 {% macro default__compile_money_to_words_en() %}
-
-create or replace function {{var('num2words_schema', 'dbtresto')}}.MoneyToWords_EN (money double)
+{#-- Due to the ROUND issue within Snowflake e.g. 999 999 999 999 999.99 will become 1 000 000 000 000 000
+  --> Split the number into 2 params: money (without decimal) & the value with decimal only
+      e.g.  money = 999 999 999 999 999
+            scale_value = 0.99  #}
+create or replace function {{var('num2words_schema', 'dbtresto')}}.MoneyToWords_EN (money double, scale_value double)
 returns varchar
 language javascript
 strict
 as
 $$
-  let Number = Math.abs(MONEY);
   let vResult = '';
 
   let tDict = {
@@ -29,7 +31,7 @@ $$
   let TrillionWord = 'trillion'
 
   //--decimal number
-  let vDecimalNum = Math.round((Number - Math.floor(Number)) * 100);
+  let vDecimalNum = Math.round((SCALE_VALUE - Math.floor(SCALE_VALUE)) * 100);
   let vLoop = 2;
   let vSubDecimalResult = ''
   if (vDecimalNum > 0) {
@@ -47,9 +49,9 @@ $$
   }
 
   //--main number
-  Number = Number.toFixed(0)
+  let Number = Math.abs(MONEY);
   if (Number == 0){
-    Result = ZeroWord
+    vResult = ZeroWord
   }
   else{
     let vSubResult = ''
@@ -71,7 +73,7 @@ $$
         if (v00Num < 20){
           //-- less than 20
           vSubResult = tDict[v00Num]
-          if (v00Num < 10 && v00Num > 0 && (v000Num > 99 || Math.floor(Number / 1000) > 0)){//e.g 1 001: 1000 AND 1; or 201 000: (200 AND 1) 000
+          if (v00Num < 10 && v00Num > 0 && (v000Num > 99 || Math.floor(Number / 1000) > 0)){//--e.g 1 001: 1000 AND 1; or 201 000: (200 AND 1) 000
             vSubResult = AndWord + ' ' + vSubResult
           }
         }
@@ -86,12 +88,12 @@ $$
 
         //--000
         if (v000Num > 99){
-          vSubResult = tDict[Math.round(v000Num / 100)] + ' ' + HundredWord + ' ' + vSubResult
+          vSubResult = tDict[Math.round(Math.floor(v000Num / 100))] + ' ' + HundredWord + (vSubResult != undefined ? ' ' + vSubResult : '')
         }
       }
 
       //--000xxx
-      if (vSubResult != ''){
+      if (vSubResult != '' && vSubResult != undefined){
         vSubResult = vSubResult + ' '
                     + (vIndex == 1 ? ThousandWord : (
                         vIndex == 2 ? MillionWord : (
@@ -113,7 +115,7 @@ $$
   vResult = vResult.trim() + ' ' + (
     vSubDecimalResult != '' ? DotWord + ' ' + vSubDecimalResult : ''
   )
-  return vResult;
-$$;
+  return vResult.trim();
+$$
 
 {% endmacro %}

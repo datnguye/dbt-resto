@@ -17,3 +17,6 @@ macros:
   - name: default__money_to_words
     docs:
       show: false
+  - name: sqlserver__money_to_words
+    docs:
+      show: false

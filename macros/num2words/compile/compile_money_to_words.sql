@@ -14,7 +14,6 @@
   {% endif %}
 {% endmacro %}
 
-
 {% macro sqlserver__compile_money_to_words() %}
   {%- if execute -%}
     {% set create_schema -%}
@@ -23,7 +22,6 @@
         EXEC('CREATE SCHEMA [{{ var("num2words_schema", "dbtresto") }}]')
       END
     {% endset %}
-    {{ log(create_schem, info=True) }}
     {% do run_query(create_schema) %}
 
     {% set compile_sql -%}

@@ -6,16 +6,16 @@ with data as (
           ,'one hundred twenty-three million four hundred fifty-six thousand seven hundred eighty-nine point five six' as expected
   union all
   select  123000789.56 as input
-          ,'one hundred twenty-three million seven hundred eighty-nine point five six ' as expected
+          ,'one hundred twenty-three million seven hundred eighty-nine point five six' as expected
   union all
   select  123010789.56 as input
-          ,'one hundred twenty-three million ten thousand seven hundred eighty-nine point five six ' as expected
+          ,'one hundred twenty-three million ten thousand seven hundred eighty-nine point five six' as expected
   union all
   select  123004789.56 as input
-          ,'one hundred twenty-three million and four thousand seven hundred eighty-nine point five six ' as expected
+          ,'one hundred twenty-three million and four thousand seven hundred eighty-nine point five six' as expected
   union all
   select  123904789.56 as input
-          ,'one hundred twenty-three million nine hundred and four thousand seven hundred eighty-nine point five six ' as expected
+          ,'one hundred twenty-three million nine hundred and four thousand seven hundred eighty-nine point five six' as expected
   union all
   select  205.56 as input
           ,'two hundred and five point five six' as expected
