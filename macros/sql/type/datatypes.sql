@@ -15,6 +15,14 @@
 
 {# timestamp  -------------------------------------------------     #}
 
+{%- macro type_date() -%}
+  {{ return(adapter.dispatch('type_date', 'dbt_resto')()) }}
+{%- endmacro -%}
+
+{% macro default__type_date() %}
+    date
+{% endmacro %}
+
 {%- macro type_timestamp() -%}
   {{ return(adapter.dispatch('type_timestamp', 'dbt_resto')()) }}
 {%- endmacro -%}

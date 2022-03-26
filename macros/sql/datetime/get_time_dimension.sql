@@ -37,7 +37,7 @@ select    time_value,--string of HH:MM:SS
           cast({{ dbt_resto.datepart('time_value', 'hour') }} as {{ dbt_resto.type_int() }}) as hour24_number,
           {{ dbt_resto.get_time_key('time_value', ['hour']) }} as hour24_name, --string of HH:00:00
 
-          {%- if level == 'minute' %}
+          {%- if level in ['minute', 'second'] %}
 
           cast({{ dbt_resto.datepart('time_value', 'minute') }} as {{ dbt_resto.type_int() }}) as minute_number,
           concat(
@@ -53,7 +53,7 @@ select    time_value,--string of HH:MM:SS
 
           {%- endif %}
 
-          {%- if level == 'second' %}
+          {%- if level in ['second'] %}
 
           cast({{ dbt_resto.datepart('time_value', 'second') }} as {{ dbt_resto.type_int() }}) as second_number,
 

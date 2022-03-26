@@ -5,11 +5,9 @@
 {% macro default__get_time_key(column, parts, h24) %}
 
   {%- set pattern -%}
-    {%- for part in parts -%}
-      {%- if part == 'hour' -%} 'HH' ~ ({%- if h24 -%} '24' {%- else -%} '' {%- endif -%}) {%- else -%} '00' {%- endif -%}
-    ~ {%- if part == 'hour' -%} 'MI' {%- else -%} '00' {%- endif -%}
-    ~ {%- if part == 'hour' -%} 'SS' {%- else -%} '00' {%- endif -%}
-    {%- endfor -%}
+    {%- if 'hour' in parts -%} HH {%- if h24 -%} 24 {%- else -%} 12 {%- endif -%} {%- else -%} 00 {%- endif -%}
+    {%- if 'minute' in parts -%} MI {%- else -%} 00 {%- endif -%}
+    {%- if 'second' in parts -%} SS {%- else -%} 00 {%- endif -%}
   {%- endset -%}
   to_varchar({{ column }}, '{{ pattern }}')
 
@@ -18,11 +16,9 @@
 {% macro sqlserver__get_time_key(column, parts, h24) %}
 
   {%- set pattern -%}
-    {%- for part in parts -%}
-      {%- if part == 'hour' -%} ({%- if h24 -%} 'HH' {%- else -%} 'hh' {%- endif -%}) {%- else -%} '00' {%- endif -%}
-    ~ {%- if part == 'hour' -%} 'mm' {%- else -%} '00' {%- endif -%}
-    ~ {%- if part == 'hour' -%} 'ss' {%- else -%} '00' {%- endif -%}
-    {%- endfor -%}
+    {%- if 'hour' in parts -%} {%- if h24 -%} HH {%- else -%} hh {%- endif -%} {%- else -%} 00 {%- endif -%}
+    {%- if 'minute' in parts -%} mm {%- else -%} 00 {%- endif -%}
+    {%- if 'second' in parts -%} ss {%- else -%} 00 {%- endif -%}
   {%- endset -%}
   format({{ column }}, '{{ pattern }}')
 

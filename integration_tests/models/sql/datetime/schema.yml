@@ -5,13 +5,32 @@ models:
     tests:
       - dbt_utils.expression_is_true:
           expression: 'actual = expected'
+
+  - name: verify_get_time_key
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'actual = expected'
+
+  - name: verify_str_to_date
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "coalesce(actual,'1900-01-01') = coalesce(expected, '1900-01-01')"
+
   - name: verify_get_base_times_hour
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: '{{ dbt_resto.datepart("time_value", "minute") }} = 0'
+      - dbt_utils.expression_is_true:
+          expression: '{{ dbt_resto.datepart("time_value", "second") }} = 0'
     columns:
       - name: time_value
         tests:
           - unique
           - not_null
   - name: verify_get_base_times_minute
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: '{{ dbt_resto.datepart("time_value", "second") }} = 0'
     columns:
       - name: time_value
         tests:
