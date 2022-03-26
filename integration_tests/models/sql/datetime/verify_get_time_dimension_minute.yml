@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: verify_get_time_dimension_minute
+    columns:
+      - name: time_key
+        tests:
+          - not_null
+          - unique
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 235900
+      - name: minute_number
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 59
+      - name: hour_minute_name
+        tests:
+          - not_null
+          - unique
+      - name: hour24_minute_name
+        tests:
+          - not_null
+          - unique
+
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'len(hour24_minute_name) = 6'
+      - dbt_utils.expression_is_true:
+          expression: "right(hour24_minute_name, 2) = '00'"
+      - dbt_utils.expression_is_true:
+          expression: "cast(left(hour24_minute_name, 2) as {{ dbt_resto.type_int() }}) = hour24_number"
+      - dbt_utils.expression_is_true:
+          expression: "cast(right(left(hour24_minute_name, 4),2) as {{ dbt_resto.type_int() }}) = minute_number"
+
+      - dbt_utils.expression_is_true:
+          expression: 'len(hour_minute_name) = 9'
+      - dbt_utils.expression_is_true:
+          expression: "left(right(hour_minute_name, 5), 2) = '00'"
+      - dbt_utils.expression_is_true:
+          expression: "right(hour_minute_name, 2) in ('AM','PM')"
+      - dbt_utils.expression_is_true:
+          expression: "cast(left(hour_minute_name, 2) as {{ dbt_resto.type_int() }}) = hour_number"
+          where: hour_number != 0
+      - dbt_utils.expression_is_true:
+          expression: "cast(left(hour_minute_name, 2) as {{ dbt_resto.type_int() }}) = 12"
+          where: hour_number = 0
+      - dbt_utils.expression_is_true:
+          expression: "cast(right(left(hour_minute_name, 4),2) as {{ dbt_resto.type_int() }}) = minute_number"

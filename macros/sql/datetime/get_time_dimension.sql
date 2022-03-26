@@ -1,11 +1,22 @@
 {% macro get_time_dimension(level='hour') %}
-  {{ adapter.dispatch('get_time_dimension', 'dbt_resto') (level) }}
+  {{ adapter.dispatch('get_time_dimension', 'dbt_resto') (level, kwargs) }}
 {% endmacro %}
 
-{% macro default__get_time_dimension(level) %}
+{% macro default__get_time_dimension(level, kwargs) %}
 
 with base_times as (
+{%- if target.type in ['sqlserver'] and level == 'second' %}
+
+  {%- set base_table = kwargs.get('base_table') -%}
+  {#-- get_base_times producs WITH statement but SQL Server wont accept WITH inside WITH #}
+  select  dateadd(second, value, '{{ base }}') as time_value
+  from    {{ base_table }}
+
+{%- else %}
+
   {{ dbt_resto.get_base_times(level) }}
+
+{%- endif %}
 )
 
 select    time_value,--string of HH:MM:SS
@@ -62,6 +73,5 @@ select    time_value,--string of HH:MM:SS
           cast({{ dbt_resto.get_time_key('time_value') }} as {{ dbt_resto.type_bigint() }}) as time_key --number of HHMMSS
 
 from      base_times
-order by  1
 
 {% endmacro %}
