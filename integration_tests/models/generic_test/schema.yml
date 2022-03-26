@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: verify_if_column_value_to_match_regex
+    columns:
+      - name: text_only
+        tests:
+          - dbt_resto.if_column_value_to_match_regex:
+              regex_expr: "[a-zA-z]"
+      - name: number_only
+        tests:
+          - dbt_resto.if_column_value_to_match_regex:
+              regex_expr: "[0-9]"
