@@ -105,3 +105,45 @@ See [integration_tests](./integration_tests/README.md)
             - dbt_resto.if_column_value_to_match_regex:
                 regex_expr: '[a-zA-Z]' # matching text only
   ```
+
+
+## Materialization:
+### materialized_view ([source](/macros/materialization/model/materialized_view/materialized_view.sql))
+  Model materialization for Materialized View (it's called Indexed View in SQL Server)
+
+  - NOTE - Supported editions:
+    - Snowflake Enterprise and above
+    - SQL Server all editions
+
+  - NOTE: Use this with knowledge of the Limitations
+
+  Usage:
+  - Snowflake
+
+    ```
+    {{
+      config(
+        materialized = 'materialized_view'
+      )
+    }}
+
+    select  time_key,
+            time_value
+    from    {{ ref('verify_get_time_dimension_second') }}
+    ```
+  - SQL Server:
+
+    ```
+    {{
+      config(
+        materialized = 'materialized_view',
+        unique_key = 'time_key',
+      )
+    }}
+
+    select  time_key,
+            time_value
+    from    {{ ref('verify_get_time_dimension_second').include(database=False) }}
+    ```
+    - The `ref` relation must go with `include(database=False)`
+    - The config must have `unique_key`
