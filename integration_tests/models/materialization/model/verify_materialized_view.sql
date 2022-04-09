@@ -17,7 +17,7 @@ from    {{ ref('verify_get_time_dimension_second').include(database=False) }}
 {{
   config(
     materialized = 'materialized_view',
-    enabled = (target.type == 'snowflake')
+    enabled = (target.type != 'snowflake')
   )
 }}
 
