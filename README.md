@@ -127,9 +127,8 @@ See [integration_tests](./integration_tests/README.md)
       )
     }}
 
-    select  time_key,
-            time_value
-    from    {{ ref('verify_get_time_dimension_second') }}
+    select  *
+    from    {{ ref('your_model') }}
     ```
   - SQL Server:
 
@@ -137,13 +136,12 @@ See [integration_tests](./integration_tests/README.md)
     {{
       config(
         materialized = 'materialized_view',
-        unique_key = 'time_key',
+        unique_key = 'your_model_key',
       )
     }}
 
-    select  time_key,
-            time_value
-    from    {{ ref('verify_get_time_dimension_second').include(database=False) }}
+    select  *
+    from    {{ ref('your_model').include(database=False) }}
     ```
     - The `ref` relation must go with `include(database=False)`
     - The config must have `unique_key`
