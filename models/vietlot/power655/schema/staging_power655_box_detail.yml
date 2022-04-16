@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: staging_power655_box_detail
+    description: staging_power655_box_detail
+    # columns:
+    #   - mame: col
+    #     description: col
