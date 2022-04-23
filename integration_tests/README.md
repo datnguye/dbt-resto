@@ -46,6 +46,9 @@ Once adding new macro(s) in dbt_resto package, please also create a test in this
   Windows: %userprofile%/.dbt
   ```
 
+
+
+
 - Check if you're ready now:
   ```
   dbt debug
@@ -95,5 +98,11 @@ Once adding new macro(s) in dbt_resto package, please also create a test in this
 
 - Check if you're ready now:
   ```
-  dbt debug
+  dbt debug [--target sqlserver]
+  ```
+
+- Install dependencies:
+  ```
+  dbt deps [--target sqlserver]
+  dbt run-operation compile_money_to_words [--target sqlserver]
   ```
