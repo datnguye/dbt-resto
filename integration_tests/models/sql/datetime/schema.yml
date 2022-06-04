@@ -42,3 +42,8 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: verify_hash
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'actual = expected'
