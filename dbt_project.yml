@@ -35,7 +35,7 @@ seeds:
           +full_refresh: true
           +column_types:
               box_date:             "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"
-              box_id:               "{% if target.type in ['sqlserver'] %} varchar(10)    {% else %} timestamp {% endif %}"
+              box_id:               "{% if target.type in ['sqlserver'] %} varchar(10)    {% else %} varchar {% endif %}"
               box_name:             "{% if target.type in ['sqlserver'] %} nvarchar(256)  {% else %} varchar {% endif %}"
               box_result_numbers:   "{% if target.type in ['sqlserver'] %} nvarchar(50)   {% else %} varchar {% endif %}"
               box_results:          "{% if target.type in ['sqlserver'] %} nvarchar(4000) {% else %} varchar {% endif %}"

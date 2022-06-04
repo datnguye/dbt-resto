@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: staging_power655_box_detail
+    description: Box data in details at data quality level
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - box_id
+            - prize_name
+    columns:
+      - name: sk_box_detail
+        description: Surrograte key
+        tests:
+          - unique
+          - not_null
+      - name: box_id
+        description: Box ID
+        tests:
+          - not_null
+      - name: prize_name
+        description: Prize name
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Jackpot 1','Jackpot 2','Giải nhất','Giải nhì','Giải ba']
+      - name: prize_won
+        description: No of ticket won the prize
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: prize_value_raw
+        description: Prize value in text format
+        tests:
+          - not_null
+      - name: prize_value
+        description: Prize value in numeric
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '> 0'

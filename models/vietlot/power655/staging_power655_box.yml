@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: staging_power655_box
+    description: Box data at data quality level
+    columns:
+      - name: sk_box
+        description: Surrograte key
+        tests:
+          - unique
+          - not_null
+      - name: box_date
+        description: Box created date
+        tests:
+          - unique
+          - not_null
+      - name: box_id
+        description: Box ID
+        tests:
+          - unique
+          - not_null
+      - name: box_name
+        description: Box name
+        tests:
+          - unique
+          - not_null
+      - name: box_result_numbers
+        description: Whole set of box result numbers
+        tests:
+          - not_null
+      - name: box_result_number_1
+        description: Box result number at position 1
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 1'
+          - dbt_utils.expression_is_true:
+              expression: '< box_result_number_2'
+      - name: box_result_number_2
+        description: Box result number at position 2
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '< box_result_number_3'
+      - name: box_result_number_3
+        description: Box result number at position 3
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '< box_result_number_4'
+      - name: box_result_number_4
+        description: Box result number at position 4
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '< box_result_number_5'
+      - name: box_result_number_5
+        description: Box result number at position 5
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '< box_result_number_6'
+      - name: box_result_number_6
+        description: Box result number at position 6
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '<= 56'
+      - name: box_result_number_7
+        description: Box result number at position 7 (currently missing from Data Ingestion)
