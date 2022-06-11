@@ -5,7 +5,46 @@ require-dbt-version: ">=0.14.0"
 
 config-version: 2
 macro-paths: ["macros"]
+model-paths: ["models"]
+seed-paths: [seeds]
+
+dispatch:
+  - macro_namespace: dbt_date
+    search_order: ['dbt_date','dbt_resto']
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_resto','dbt_utils']
 
 vars:
   table_suffix: ""
-  num2words_schema: "dbtresto"
+  num2words_schema: dbtresto
+  vietlot_database: vietlot_power655
+
+models:
+  +transient: false
+  dbt_resto:
+    vietlot:
+      power655:
+        +database: "{{ var('vietlot_database', 'vietlot_power655') }}"
+        +materialized: table
+        staging:
+          +schema: staging
+        mart:
+          +schema: mart
+
+seeds:
+  dbt_resto:
+    vietlot:
+      power655:
+        vietlot_power655_data:
+          +database: "{{ env_var('dbt_vietlot_power655_database', 'vietlot_power655') }}"
+          +schema: "{{ env_var('dbt_vietlot_power655_schema', 'landing') }}"
+          +alias: "{{ env_var('dbt_vietlot_power655_table', 'power655_data') }}"
+          +full_refresh: true
+          +column_types:
+              box_date:             "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"
+              box_id:               "{% if target.type in ['sqlserver'] %} varchar(10)    {% else %} varchar {% endif %}"
+              box_name:             "{% if target.type in ['sqlserver'] %} nvarchar(256)  {% else %} varchar {% endif %}"
+              box_result_numbers:   "{% if target.type in ['sqlserver'] %} nvarchar(50)   {% else %} varchar {% endif %}"
+              box_results:          "{% if target.type in ['sqlserver'] %} nvarchar(4000) {% else %} varchar {% endif %}"
+              created_at:           "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"
+              updated_at:           "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"

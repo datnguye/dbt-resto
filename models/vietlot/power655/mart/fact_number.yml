@@ -1,0 +1,120 @@
+version: 2
+
+models:
+  - name: fact_number
+    description: Statistics of 56 numbers
+    columns:
+      - name: number_value
+        description: Number value
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              values: [
+                1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                11,12,13,14,15,16,17,18,19,20,
+                21,22,23,24,25,26,27,28,29,30,
+                31,32,33,34,35,36,37,38,39,40,
+                41,42,43,44,45,46,47,48,49,50,
+                51,52,53,54,55]
+      - name: occurrence
+        description: Times that number has appeared in any positions
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: occurrence_pos_1
+        description: Times that number has appeared at postition 1
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_2
+        description: Tmes that number has appeared at postition 2
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_3
+        description: Times that number has appeared at postition 3
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_4
+        description: Times that number has appeared at postition 4
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_5
+        description: Times that number has appeared at postition 5
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_6
+        description: Times that number has appeared at postition 6
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+          - dbt_utils.expression_is_true:
+              expression: '<= occurrence'
+      - name: occurrence_pos_7
+        description: Times that number has appeared at postition 7
+      - name: last_appearance
+        description: The date where number appearing in any positions
+        tests:
+          - relationships:
+              where: last_appearance is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_1
+        description: The date where number appearing at position 1
+        tests:
+          - relationships:
+              where: last_appearance_pos_1 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_2
+        description: The date where number appearing at position 2
+        tests:
+          - relationships:
+              where: last_appearance_pos_2 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_3
+        description: The date where number appearing at position 3
+        tests:
+          - relationships:
+              where: last_appearance_pos_3 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_4
+        description: The date where number appearing at position 4
+        tests:
+          - relationships:
+              where: last_appearance_pos_4 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_5
+        description: The date where number appearing at position 5
+        tests:
+          - relationships:
+              where: last_appearance_pos_5 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_6
+        description: The date where number appearing at position 6
+        tests:
+          - relationships:
+              where: last_appearance_pos_6 is not null
+              to: ref('dim_date')
+              field: date_key
+      - name: last_appearance_pos_7
+        description: The date where number appearing at position 7

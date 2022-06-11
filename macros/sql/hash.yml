@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: hash
+    description: |
+      Get hash value from list of fields
+    docs:
+      show: true
+    arguments:
+      - name: fields
+        type: list
+        description: List of fields
+
+  - name: default__hash
+    docs:
+      show: false
+  - name: sqlserver__hash
+    docs:
+      show: false

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_prize
+    description: Prize Dimension
+    columns:
+      - name: prize_key
+        description: Dim key
+        tests:
+          - not_null
+          - unique
+      - name: prize_name
+        description: Prize name
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Jackpot 1','Jackpot 2','Giải nhất','Giải nhì','Giải ba']
+      - name: prize_order
+        description: Prize order by its value
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              where: prize_name = 'Jackpot 1'
+              expression: '= 1'
+          - dbt_utils.expression_is_true:
+              where: prize_name = 'Jackpot 2'
+              expression: '= 2'
+          - dbt_utils.expression_is_true:
+              where: prize_name = 'Giải nhất'
+              expression: '= 3'
+          - dbt_utils.expression_is_true:
+              where: prize_name = 'Giải nhì'
+              expression: '= 4'
+          - dbt_utils.expression_is_true:
+              where: prize_name = 'Giải ba'
+              expression: '= 5'
