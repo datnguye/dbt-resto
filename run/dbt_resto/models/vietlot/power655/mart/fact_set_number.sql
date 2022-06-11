@@ -1,0 +1,18 @@
+
+
+      create or replace transient table vietlot_power655.mart.fact_set_number  as
+      (with staging_box as (
+
+  select * from vietlot_power655.staging.staging_power655_box
+
+)
+
+select     box_result_numbers
+          ,count(1) as occurrence
+          ,max(box_date) as last_appearance
+
+from      staging_box
+
+group by  box_result_numbers
+      );
+    
