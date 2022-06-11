@@ -17,7 +17,6 @@ select  {{ dbt_resto.hash(['box_id', 'box_results.prize_name']) }} as sk_box_det
         ,box_results.*
 
 from    {{ ref('vietlot_power655_data') }}
-{# to be continued #}
 outer apply (
   select  prizes.*
   from    openjson(box_results) with (box_result nvarchar(max) '$' as json)
