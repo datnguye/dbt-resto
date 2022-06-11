@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: dim_box
+    description: Box Dimension
+    columns:
+      - name: box_key
+        description: Dim key
+        tests:
+          - not_null
+          - unique
+      - name: box_id
+        description: Box ID
+        tests:
+          - not_null
+          - unique
+      - name: box_result_numbers
+        description: Set of numbers as box result
+        tests:
+          - not_null
+      - name: box_result_number_1
+        description: Result number at position 1
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_2'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_3'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_4'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_5'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_6'
+      - name: box_result_number_2
+        description: Result number at position 2
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_3'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_4'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_5'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_6'
+      - name: box_result_number_3
+        description: Result number at position 3
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_4'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_5'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_6'
+      - name: box_result_number_4
+        description: Result number at position 4
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_5'
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_6'
+      - name: box_result_number_5
+        description: Result number at position 5
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '!= box_result_number_6'
+      - name: box_result_number_6
+        description: Result number at position 6
+        tests:
+          - not_null
+      - name: box_result_number_7
+        description: Result number at position 7

@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: fact_set_number
+    description: Statistics of Set of result numbers
+    columns:
+      - name: box_result_numbers
+        description: The set number
+        tests:
+          - not_null
+          - unique
+      - name: occurrence
+        description: Occurrence of the set numbers
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: last_appearance
+        description: Last appearance of the set numbers

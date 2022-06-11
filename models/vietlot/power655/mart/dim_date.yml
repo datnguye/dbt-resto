@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Date Dimension
+    columns:
+      - name: date_key
+        description: Dim key
+        tests:
+          - not_null
+          - unique
+      - name: box_date
+        description: Box Date
+        tests:
+          - not_null
+          - unique
+      - name: box_day
+        description: Box's day
+        tests:
+          - not_null
+      - name: box_week
+        description: Box's week
+        tests:
+          - not_null
+      - name: box_month
+        description: Box's month
+        tests:
+          - not_null
+      - name: box_month_name
+        description: Box's month name
+        tests:
+          - not_null
+      - name: box_year
+        description: Box's year
+        tests:
+          - not_null

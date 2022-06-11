@@ -8,30 +8,37 @@ macro-paths: ["macros"]
 model-paths: ["models"]
 seed-paths: [seeds]
 
+dispatch:
+  - macro_namespace: dbt_date
+    search_order: ['dbt_date','dbt_resto']
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_resto','dbt_utils']
+
 vars:
   table_suffix: ""
   num2words_schema: dbtresto
-  # vietlot_power655_landing_schema: landing
-  # vietlot_power655_staging_schema: staging
+  vietlot_database: vietlot_power655
 
 models:
+  +transient: false
   dbt_resto:
     vietlot:
       power655:
-        +database: "{{ var('vietlot_power655_database', 'vietlot_power655') }}"
-        +schema: staging
-        #"{{ var('vietlot_power655_staging_schema') }}"
+        +database: "{{ var('vietlot_database', 'vietlot_power655') }}"
         +materialized: table
+        staging:
+          +schema: staging
+        mart:
+          +schema: mart
 
 seeds:
   dbt_resto:
     vietlot:
       power655:
         vietlot_power655_data:
-          +database: vietlot_power655
-          +schema: landing
-          #"{{ var('vietlot_power655_landing_schema') }}"
-          +alias: power655_data
+          +database: "{{ env_var('dbt_vietlot_power655_database', 'vietlot_power655') }}"
+          +schema: "{{ env_var('dbt_vietlot_power655_schema', 'landing') }}"
+          +alias: "{{ env_var('dbt_vietlot_power655_table', 'power655_data') }}"
           +full_refresh: true
           +column_types:
               box_date:             "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"

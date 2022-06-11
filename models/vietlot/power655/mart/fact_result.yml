@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: fact_result
+    description: Statistics of Prize result
+    columns:
+      - name: fact_result_key
+        description: Fact key
+        tests:
+          - not_null
+          - unique
+      - name: box_key
+        description: Box key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_box')
+              field: box_key
+      - name: prize_key
+        description: Prize key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_prize')
+              field: prize_key
+      - name: date_key
+        description: Date key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: no_of_won
+        description: Number of people has won the prize
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: prize_value
+        description: Prize value
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: prize_paid
+        description: Total value was paid to people won the prize
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '= prize_value * no_of_won'
+      - name: is_prize_taken
+        description: Indicates if prize has won by someone
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              where: no_of_won > 0
+              expression: '= 1'
+          - accepted_values:
+              values: [0,1]
