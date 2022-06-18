@@ -3,6 +3,7 @@
       create or replace transient table vietlot_power655.mart.dim_box  as
       (select   sk_box as box_key
         ,box_id
+        ,box_date
         ,box_result_numbers
         ,box_result_number_1
         ,box_result_number_2
