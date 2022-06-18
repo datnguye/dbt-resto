@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: fact_forecast
+    description: Statistics of number forecasting
+    # TODO: Generic test

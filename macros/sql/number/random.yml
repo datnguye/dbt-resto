@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: random
+    description: |
+      Get a number randomly between 0 and 1 e.g. 0.3625049184
+    docs:
+      show: true
+
+  - name: default__random
+    docs:
+      show: false
+  - name: sqlserver__random
+    docs:
+      show: false

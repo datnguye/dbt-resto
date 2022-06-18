@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: fact_forecast_result
+    description: Forecasting stamp
+    # TODO: Generic test

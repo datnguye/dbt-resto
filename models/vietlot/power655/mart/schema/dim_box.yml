@@ -14,6 +14,10 @@ models:
         tests:
           - not_null
           - unique
+      - name: box_date
+        description: Box date
+        tests:
+          - not_null
       - name: box_result_numbers
         description: Set of numbers as box result
         tests:
