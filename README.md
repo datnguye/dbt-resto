@@ -1,7 +1,7 @@
 # dbt-resto
 This is dbt package for everyone
 
-[![integration_tests](https://github.com/datnguye/dbt-resto/actions/workflows/integration_tests.yml/badge.svg?branch=main)](https://github.com/datnguye/dbt-resto/actions/workflows/integration_tests.yml)
+[![integration_tests](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml/badge.svg)](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml)
 
 - Default warehouse: Snowflake
 - Supported warehouses:
