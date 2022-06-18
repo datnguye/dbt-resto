@@ -3,6 +3,12 @@ set -e
 
 # cd $*
 
+SKIP_CI="[Ingestion+]"
+if [ $INGESTION_ONLY -eq 1 ]
+then
+  SKIP_CI="[skip ci]"
+fi
+
 echo "Downloading csv from MongoDB"
 mongoexport --uri="${MONGODB_URI}" \
   --collection=data \
@@ -23,7 +29,7 @@ git checkout main
 git fetch origin main
 cp /opt/vietlot_power655_data.csv ./seeds/vietlot/power655
 git add .
-git commit -m "Update ${GITHUB_SHA}:vietlot_power655_data.csv to seeds folder"
+git commit -m "Update ${GITHUB_SHA}:vietlot_power655_data.csv in seeds folder ${SKIP_CI}"
 git push
 rm -fr .git
 cd $GITHUB_WORKSPACE

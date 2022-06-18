@@ -1,4 +1,4 @@
-name: integration_tests
+name: main
 
 on:
   push:
@@ -68,5 +68,3 @@ jobs:
         uses: ./.github/actions/github-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          path: public
