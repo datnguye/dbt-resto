@@ -20,14 +20,14 @@ echo "Commiting ${GITHUB_SHA} to repository"
 REPOSITORY="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git config --global --add safe.directory /opt
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
 git init
 git remote add origin $REPOSITORY
 git checkout main
 git fetch origin main
 cp /opt/vietlot_power655_data.csv ./seeds/vietlot/power655
+git config user.name "${GITHUB_ACTOR}"
+git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git add .
 git commit -m "Update ${GITHUB_SHA}:vietlot_power655_data.csv in seeds folder ${SKIP_CI}"
 git push
