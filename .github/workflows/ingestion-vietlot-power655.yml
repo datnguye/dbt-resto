@@ -1,0 +1,19 @@
+name: ingestion-vietlot-power655
+
+on:
+  push:
+    branches: [ xxx ]
+  pull_request:
+    branches: [ xxx ]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update /seeds/vietlot/power655
+        uses: ./.github/actions/power655-ingestion
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
