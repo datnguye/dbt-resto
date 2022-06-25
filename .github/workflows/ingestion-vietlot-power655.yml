@@ -18,4 +18,5 @@ jobs:
         uses: ./.github/actions/power655-ingestion
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
           INGESTION_ONLY: 1
