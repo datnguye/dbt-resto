@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+echo "Install MongoDB Tools"
 echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
 echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
 apk update
