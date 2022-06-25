@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    if: ${{ github.ref != 'refs/heads/gh-pages' }} &&  ${{ !contains(github.event.head_commit.message, '[ingestion]') }}
+    if: ${{ github.ref != 'refs/heads/gh-pages' && !contains(github.event.head_commit.message, '[ingestion]') }}
 
     steps:
       - uses: actions/checkout@v3
