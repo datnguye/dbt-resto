@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: fact_number_scoring
+    description: The scoring of numbers for each day of running
+    tests:
+      - unique_combination_of_columns:
+          combination_of_columns:
+            - forecast_date
+            - number_value
+    columns:
+      - name: fact_key
+        description: PK
+        tests:
+          - not_null
+          - unique
+      - name: forecast_date
+        description: Run date when score is recorded. It can be also named as Forecast Date
+        tests:
+          - not_null
+      - name: number_value
+        description: The number
+        tests:
+          - not_null
+      - name: score_1
+        description: Score of number 1
+      - name: score_2
+        description: Score of number 2
+      - name: score_3
+        description: Score of number 3
+      - name: score_4
+        description: Score of number 4
+      - name: score_5
+        description: Score of number 5
+      - name: score_6
+        description: Score of number 6
+      - name: rank_pos_1
+        description: Weight (randomly calculated) of number 1
+      - name: rank_pos_2
+        description: Weight (randomly calculated) of number 2
+      - name: rank_pos_3
+        description: Weight (randomly calculated) of number 3
+      - name: rank_pos_4
+        description: Weight (randomly calculated) of number 4
+      - name: rank_pos_5
+        description: Weight (randomly calculated) of number 5
+      - name: rank_pos_6
+        description: Weight (randomly calculated) of number 6

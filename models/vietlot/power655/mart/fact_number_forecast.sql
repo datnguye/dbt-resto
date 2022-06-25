@@ -7,7 +7,7 @@
 
 with forecast as (
 
-  select * from {{ ref('fact_forecast') }}
+  select * from {{ ref('fact_number_scoring') }}
 
   where   1 = 1
 
@@ -74,7 +74,7 @@ forecasting as (
 
 final as (
 
-  select      forecasting.forecast_date
+  select      top 1 forecasting.forecast_date, dim_box.box_date
               ,forecast_numbers,box_result_numbers
               ,forecast_1, box_result_number_1
               ,forecast_2, box_result_number_2
@@ -85,8 +85,9 @@ final as (
 
   from        forecasting
   left join   dim_box
-    on        dim_box.box_date = forecasting.forecast_date
+    on        dim_box.box_date <= forecasting.forecast_date
 
+  order by    dim_box.box_date desc
 )
 
 select   *
