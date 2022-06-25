@@ -8,7 +8,7 @@ apk update
 apk add mongodb-tools
 
 echo "Check SKIP CI"
-SKIP_CI="[Ingestion+]"
+SKIP_CI=""
 if [ $INGESTION_ONLY -eq 1 ]
 then
   SKIP_CI="[skip ci]"
