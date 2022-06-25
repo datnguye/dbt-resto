@@ -9,7 +9,7 @@ on:
 jobs:
   run-ingestion:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, '#ingestion') }}
+    if: ${{ contains(github.event.head_commit.message, '[ingestion]') }}
 
     steps:
       - uses: actions/checkout@v3

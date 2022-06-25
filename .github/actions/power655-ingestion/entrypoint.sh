@@ -7,7 +7,7 @@ echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositor
 apk update
 apk add mongodb-tools
 
-echo "Setup SKIP CI"
+echo "Check SKIP CI"
 SKIP_CI="[Ingestion+]"
 if [ $INGESTION_ONLY -eq 1 ]
 then
@@ -15,11 +15,7 @@ then
 fi
 
 echo "Downloading csv from MongoDB"
-mongoexport --uri="${MONGODB_URI}" \
-  --collection=data \
-  --type=csv \
-  --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at \
-  --out=/opt/vietlot_power655_data.csv
+mongoexport --uri="${MONGODB_URI}" --collection=data --type=csv --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at --out=/opt/vietlot_power655_data.csv
 
 echo "Commiting ${GITHUB_SHA} to repository"
 REPOSITORY="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
