@@ -4,7 +4,7 @@ models:
   - name: fact_number_scoring
     description: The scoring of numbers for each day of running
     tests:
-      - unique_combination_of_columns:
+      - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - forecast_date
             - number_value

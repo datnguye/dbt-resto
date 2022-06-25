@@ -8,10 +8,13 @@
 select  {% if target.type == 'sqlserver' %} {{ dbt_resto.hash(['b.sk_box','bd.prize_name','b.box_date']) }}
         {% else %} {{ dbt_utils.surrogate_key(['b.sk_box','bd.prize_name','b.box_date']) }}
         {% endif %} as fact_result_key
+
         ,b.sk_box as box_key
+
         ,{% if target.type == 'sqlserver' %} {{ dbt_resto.hash(['bd.prize_name']) }}
         {% else %} {{ dbt_utils.surrogate_key(['bd.prize_name']) }}
         {% endif %} as prize_key
+
         ,b.box_date as date_key
         ,bd.prize_won as no_of_won
         ,bd.prize_value as prize_value

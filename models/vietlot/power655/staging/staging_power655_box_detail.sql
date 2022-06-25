@@ -10,6 +10,8 @@ select  {{ dbt_utils.surrogate_key(['box_id', 'value:prize_name']) }} as sk_box_
 from    {{ ref('vietlot_power655_data') }}
         ,lateral flatten(input => try_parse_json(box_results))
 
+where   prize_name is not null
+
 {% else %}
 
 select  {{ dbt_resto.hash(['box_id', 'box_results.prize_name']) }} as sk_box_detail
@@ -28,5 +30,7 @@ outer apply (
             prize_value float '$.prize_value'
           ) as prizes
 ) as box_results
+
+where   box_results.prize_name is not null
 
 {% endif %}
