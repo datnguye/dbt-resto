@@ -19,4 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          INGESTION_ONLY: 1
+          INGESTION_ONLY: 0 # change it to 1 NOT to auto-trigger main flow
