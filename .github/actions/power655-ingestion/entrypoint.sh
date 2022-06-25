@@ -15,7 +15,7 @@ then
 fi
 
 echo "Downloading csv from MongoDB"
-mongoexport --uri="${MONGODB_URI}" --collection=data --type=csv --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at --out=/opt/vietlot_power655_data.csv
+mongoexport --uri="mongodb+srv://jackpot_power6x55:ML3WkNQ6YerfOmhe@dn-helloworld.k108g.mongodb.net/jackpot_power6x55" --collection=data --type=csv --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at --out=/opt/vietlot_power655_data.csv
 
 echo "Commiting ${GITHUB_SHA} to repository"
 REPOSITORY="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
