@@ -22,15 +22,14 @@ REPOSITORY="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITOR
 
 git config --global --add safe.directory $GITHUB_WORKSPACE
 
-git init
-git remote add origin $REPOSITORY
+git clone $REPOSITORY
 git checkout main
 git fetch origin main
 cp /opt/vietlot_power655_data.csv ./seeds/vietlot/power655
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git add .
-git commit -m "Update ${GITHUB_SHA}:vietlot_power655_data.csv in seeds folder ${SKIP_CI}"
+git commit -m "[main] Update ${GITHUB_SHA}:vietlot_power655_data.csv in seeds folder ${SKIP_CI}"
 git push
 rm -fr .git
 cd $GITHUB_WORKSPACE
