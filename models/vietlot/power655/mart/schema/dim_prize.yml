@@ -14,7 +14,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['Jackpot 1','Jackpot 2','Giải nhất','Giải nhì','Giải ba']
+              values: ['Jackpot 1','Jackpot 2','1st Prize','2nd Prize','3rd Prize']
       - name: prize_order
         description: Prize order by its value
         tests:
@@ -26,11 +26,11 @@ models:
               where: prize_name = 'Jackpot 2'
               expression: '= 2'
           - dbt_utils.expression_is_true:
-              where: prize_name = 'Giải nhất'
+              where: prize_name = '1st Prize'
               expression: '= 3'
           - dbt_utils.expression_is_true:
-              where: prize_name = 'Giải nhì'
+              where: prize_name = '2nd Prize'
               expression: '= 4'
           - dbt_utils.expression_is_true:
-              where: prize_name = 'Giải ba'
+              where: prize_name = '3rd Prize'
               expression: '= 5'

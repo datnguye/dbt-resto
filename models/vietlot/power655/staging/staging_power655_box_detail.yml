@@ -18,12 +18,16 @@ models:
         description: Box ID
         tests:
           - not_null
+      - name: prize_name_raw
+        description: Prize name with raw value
+        tests:
+          - not_null
       - name: prize_name
-        description: Prize name
+        description: Prize name (mapping to English value)
         tests:
           - not_null
           - accepted_values:
-              values: ['Jackpot 1','Jackpot 2','Giải nhất','Giải nhì','Giải ba']
+              values: ['Jackpot 1','Jackpot 2','1st Prize','2nd Prize','3rd Prize']
       - name: prize_won
         description: No of ticket won the prize
         tests:

@@ -5,7 +5,7 @@
   )
 }}
 
-select  {% if target.type == 'sqlserver' %} {{ dbt_resto.hash(['b.sk_box','bd.prize_name','b.box_date']) }}
+select  {% if target.type == 'sqlserver' %} {{ dbt_resto.hash(['bd.prize_name','b.sk_box','b.box_date']) }}
         {% else %} {{ dbt_utils.surrogate_key(['b.sk_box','bd.prize_name','b.box_date']) }}
         {% endif %} as fact_result_key
 
