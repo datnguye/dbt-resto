@@ -6,8 +6,10 @@ models:
       - name: text_only
         tests:
           - dbt_resto.if_column_value_to_match_regex:
+              enabled: "{{ target.type == 'snowflake' }}"
               regex_expr: "[a-zA-z]"
       - name: number_only
         tests:
           - dbt_resto.if_column_value_to_match_regex:
+              enabled: "{{ target.type == 'snowflake' }}"
               regex_expr: "[0-9]"

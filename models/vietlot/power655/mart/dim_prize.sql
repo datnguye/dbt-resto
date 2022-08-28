@@ -7,9 +7,9 @@ select  {% if target.type == 'sqlserver' %}
         ,case
           when prize_name = 'Jackpot 1' then 1
           when prize_name = 'Jackpot 2' then 2
-          when prize_name = 'Giải nhất' then 3
-          when prize_name = 'Giải nhì'  then 4
-          when prize_name = 'Giải ba'   then 5
+          when prize_name = '1st Prize' then 3
+          when prize_name = '2nd Prize' then 4
+          when prize_name = '3rd Prize' then 5
         end as prize_order
 
 from    {{ ref('staging_power655_box_detail') }}
