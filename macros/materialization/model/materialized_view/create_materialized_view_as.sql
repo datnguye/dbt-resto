@@ -11,6 +11,7 @@
   );
 {%- endmacro %}
 
+
 {% macro sqlserver__create_materialized_view_as(relation, sql) -%}
   {%- set sql_header = config.get('sql_header', none) -%}
   {%- set temp_view_sql -%}
@@ -23,4 +24,15 @@
   use [{{ relation.database }}];
   {{ sql_header if sql_header is not none }}
   execute('{{ temp_view_sql }}');
+{%- endmacro %}
+
+
+{% macro postgres__create_materialized_view_as(relation, sql) -%}
+  {%- set sql_header = config.get('sql_header', none) -%}
+
+  {{ sql_header if sql_header is not none }}
+  drop materialized view if exists {{ relation }};
+  create materialized view {{ relation }} as (
+    {{ sql }}
+  );
 {%- endmacro %}
