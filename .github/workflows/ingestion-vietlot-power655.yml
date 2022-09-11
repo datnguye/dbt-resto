@@ -6,12 +6,26 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: "23 0 * * *"
+    - cron: "0 23 * * *"
 
 jobs:
   run-ingestion:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, '[ingestion]') }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update /seeds/vietlot/power655
+        uses: ./.github/actions/power655-ingestion
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          INGESTION_ONLY: 0 # change it to 1 NOT to auto-trigger main flow
+
+  run-ingestion-on-schedule:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' }}
 
     steps:
       - uses: actions/checkout@v3
