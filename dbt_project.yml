@@ -10,9 +10,9 @@ seed-paths: [seeds]
 
 dispatch:
   - macro_namespace: dbt_date
-    search_order: ['dbt_date','dbt_resto']
+    search_order: ['dbt_date','dbt_resto','dbt']
   - macro_namespace: dbt_utils
-    search_order: ['dbt_resto','dbt_utils']
+    search_order: ['dbt_resto','dbt_utils','dbt']
 
 vars:
   table_suffix: ""

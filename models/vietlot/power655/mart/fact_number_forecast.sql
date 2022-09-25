@@ -5,17 +5,14 @@
   )
 }}
 
+{%- set run_date = env_var("DBT_ENV_RUN_DATE") or "current_timestamp" -%}
+
 with forecast as (
 
   select * from {{ ref('fact_number_scoring') }}
 
   where   1 = 1
-
-  {% if is_incremental() %}
-
-    and   forecast_date >= coalesce((select max(forecast_date) from {{ this }}), '1900-01-01')
-
-  {% endif %}
+    and   forecast_date = cast({{ run_date }} as {{ dbt_resto.type_date() }})
 
 ),
 
@@ -74,18 +71,18 @@ forecasting as (
 
 final as (
 
-  select      top 1 forecasting.forecast_date, dim_box.box_date
-              ,forecast_numbers,box_result_numbers
-              ,forecast_1, box_result_number_1
-              ,forecast_2, box_result_number_2
-              ,forecast_3, box_result_number_3
-              ,forecast_4, box_result_number_4
-              ,forecast_5, box_result_number_5
-              ,forecast_6, box_result_number_6
+  select      top 1 forecasting.forecast_date, dim_box.box_date as last_box_date
+              ,forecast_numbers,box_result_numbers as last_box_result_numbers
+              ,forecast_1, box_result_number_1 as last_box_result_number_1
+              ,forecast_2, box_result_number_2 as last_box_result_number_2
+              ,forecast_3, box_result_number_3 as last_box_result_number_3
+              ,forecast_4, box_result_number_4 as last_box_result_number_4
+              ,forecast_5, box_result_number_5 as last_box_result_number_5
+              ,forecast_6, box_result_number_6 as last_box_result_number_6
 
   from        forecasting
   left join   dim_box
-    on        dim_box.box_date <= forecasting.forecast_date
+    on        dim_box.box_date < forecasting.forecast_date
 
   order by    dim_box.box_date desc
 )

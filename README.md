@@ -11,6 +11,18 @@ This is dbt package for everyone
 ## Developer's Guide
 See [integration_tests](./integration_tests/README.md)
 
+## Environment Variables
+- DBT_ENV_RUN_DATE:
+  - Applicable to models.vietlot.*.mart
+  - Pin the date you would like to run the forecast. By default the value is `current_timestamp`
+  - Set value:
+  ```
+  # windows
+  set DBT_ENV_RUN_DATE='2022-09-24'
+  # linux
+  export DBT_ENV_RUN_DATE='2022-09-24'
+  ```
+
 ## Macros:
 ### get_table_alias ([source](/macros/config/get_table_alias.sql))
   Suffix the table name with your configured variable `table_suffix`.
