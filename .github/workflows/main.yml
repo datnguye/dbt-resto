@@ -31,8 +31,8 @@ jobs:
       - name: Build and test dbt package
         working-directory: ./integration_tests
         run: |
-          poetry run dbt deps
-          poetry run dbt docs generate
+          poetry run dbt deps --target postgres
+          poetry run dbt docs generate --target postgres
           poetry run poe test_postgres
         env:
           POSTGRES_TEST_HOST: ${{ secrets.POSTGRES_TEST_HOST }}

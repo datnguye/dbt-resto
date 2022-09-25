@@ -7,7 +7,7 @@
     execute format('SELECT to_date(%L, %L)', $1, $2)
     into  _out;
   exception when others then
-    -- do nothing: _out already carries default
+    null;
   end
   $func$;
 
