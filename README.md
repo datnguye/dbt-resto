@@ -7,6 +7,7 @@ This is dbt package for everyone
 - Supported warehouses:
     - Snowflake
     - SQL Server
+    - Postgres
 
 ## Developer's Guide
 See [integration_tests](./integration_tests/README.md)
