@@ -19,21 +19,21 @@
   {{ return(adapter.dispatch('type_date', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_date() %}
-    date
-{% endmacro %}
+{% macro default__type_date() -%}
+  date
+{%- endmacro %}
 
 {%- macro type_timestamp() -%}
   {{ return(adapter.dispatch('type_timestamp', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_timestamp() %}
-    timestamp
-{% endmacro %}
+{% macro default__type_timestamp() -%}
+  timestamp
+{%- endmacro %}
 
-{% macro sqlserver__type_timestamp() %}
-    datetime
-{% endmacro %}
+{% macro sqlserver__type_timestamp() -%}
+  datetime
+{%- endmacro %}
 
 
 {# float  -------------------------------------------------     #}
@@ -42,9 +42,9 @@
   {{ return(adapter.dispatch('type_float', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_float() %}
-    float
-{% endmacro %}
+{% macro default__type_float() -%}
+  float
+{%- endmacro %}
 
 {# numeric  ------------------------------------------------     #}
 
@@ -52,9 +52,9 @@
   {{ return(adapter.dispatch('type_numeric', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_numeric() %}
-    numeric(28, 6)
-{% endmacro %}
+{% macro default__type_numeric() -%}
+  numeric(28, 6)
+{%- endmacro %}
 
 
 {# bigint  -------------------------------------------------     #}
@@ -63,9 +63,9 @@
   {{ return(adapter.dispatch('type_bigint', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_bigint() %}
-    bigint
-{% endmacro %}
+{% macro default__type_bigint() -%}
+  bigint
+{%- endmacro %}
 
 {# int  -------------------------------------------------     #}
 
@@ -73,6 +73,6 @@
   {{ return(adapter.dispatch('type_int', 'dbt_resto')()) }}
 {%- endmacro -%}
 
-{% macro default__type_int() %}
-    int
-{% endmacro %}
+{% macro default__type_int() -%}
+  int
+{%- endmacro %}

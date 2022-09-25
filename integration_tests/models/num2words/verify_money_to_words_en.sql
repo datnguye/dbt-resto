@@ -1,3 +1,9 @@
+{{
+  config(
+    enabled = (target.type in ['snowflake','sqlserver'])
+  )
+}}
+
 with data as (
   select  3201001.25 as input
           ,'three million two hundred and one thousand and one point two five' as expected

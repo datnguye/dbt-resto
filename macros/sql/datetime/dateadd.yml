@@ -1,0 +1,25 @@
+version: 2
+
+macros:
+  - name: dateadd
+    description: |
+      Add value to the date value.
+    docs:
+      show: true
+    arguments:
+      - name: datepart
+        type: string
+        description: Date part name to extract e.g. day, month, year, etc
+      - name: interval
+        type: nmuber
+        description: Value to add. Can be negative
+      - name: column
+        type: string
+        description: Datetime column
+
+  - name: default__dateadd
+    docs:
+      show: false
+  - name: postgres__dateadd
+    docs:
+      show: false
