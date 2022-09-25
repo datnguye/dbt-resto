@@ -33,7 +33,7 @@ jobs:
         run: |
           poetry run dbt deps --target postgres
           poetry run dbt docs generate --target postgres
-          dbt build --vars '{fresh_run: true}' --target postgres --exclude package:dbt_resto
+          poetry run dbt build --vars '{fresh_run: true}' --target postgres --exclude package:dbt_resto
         env:
           POSTGRES_TEST_HOST: ${{ secrets.POSTGRES_TEST_HOST }}
           POSTGRES_TEST_USER: ${{ secrets.POSTGRES_TEST_USER }}
