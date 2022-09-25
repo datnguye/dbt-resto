@@ -1,5 +1,5 @@
 # dbt-resto
-This is dbt package for everyone
+This is dbt package for FUN!
 
 [![integration_tests](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml/badge.svg)](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml)
 
