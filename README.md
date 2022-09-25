@@ -28,7 +28,7 @@ See [integration_tests](./integration_tests/README.md)
   Suffix the table name with your configured variable `table_suffix`.
 
   Usage:
-  ```
+  ```sql
   {{ config(alias=dbt_resto.get_table_alias(this)) }}
   ```
 
@@ -41,7 +41,7 @@ See [integration_tests](./integration_tests/README.md)
   ```
 
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.money_to_words('column', 'en') }} as my_column_name_in_words
   ```
 
@@ -50,11 +50,19 @@ See [integration_tests](./integration_tests/README.md)
 
   If the model has no config `schema` then it will use target.schema to be its schema name, else will use the exact schema name configured.
 
+### dateadd ([source](/macros/sql/datetime/dateadd.sql))
+  Add value to date
+
+  Usage:
+  ```sql
+  select {{ dbt_resto.dateadd('day', 1, 'column') }}
+  ```
+
 ### datepart ([source](/macros/sql/datetime/datepart.sql))
   Get date part
 
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.datepart('column', 'second') }}
   ```
 
@@ -62,7 +70,7 @@ See [integration_tests](./integration_tests/README.md)
   Prepare the select statement of the datetime values in each level = hour, minute.
 
   Usage:
-  ```
+  ```sql
   with base_times as (
     {{ dbt_resto.get_base_times('hour') }}
   )
@@ -78,7 +86,7 @@ See [integration_tests](./integration_tests/README.md)
   Prepare the select statement of all columns required in a time dimension table.
 
   Usage:
-  ```
+  ```sql
   # models/my_model.yml
   {{ dbt_resto.get_time_dimension() }}
   ```
@@ -87,7 +95,7 @@ See [integration_tests](./integration_tests/README.md)
   Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 092733
 
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.get_time_key('column', parts=['hour','minute','second'], h24=True) }}
   ```
 
@@ -95,7 +103,7 @@ See [integration_tests](./integration_tests/README.md)
   Convert a string formatted in a specific pattern to the date value.
 
   Usage:
-  ```
+  ```sql
   select   {{ dbt_resto.str_to_date('column') }} as date_column
   from     table
   ```
@@ -108,7 +116,7 @@ See [integration_tests](./integration_tests/README.md)
   Currently support Snowflake only.
 
   Usage:
-  ```
+  ```sql
   models:
     - name: table_name
       columns:
@@ -132,7 +140,7 @@ See [integration_tests](./integration_tests/README.md)
   Usage:
   - Snowflake
 
-    ```
+    ```sql
     {{
       config(
         materialized = 'materialized_view'
@@ -144,7 +152,7 @@ See [integration_tests](./integration_tests/README.md)
     ```
   - SQL Server:
 
-    ```
+    ```sql
     {{
       config(
         materialized = 'materialized_view',
