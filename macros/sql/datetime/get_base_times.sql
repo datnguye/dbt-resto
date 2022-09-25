@@ -32,14 +32,14 @@
       order by 2
       {% if target.type != 'sqlserver' %} limit 86400 {% endif %}
     )
-    select  dateadd(second, value, '{{ base }}') as time_value
+    select  {{ dbt_resto.dateadd("second", "value", "'" ~ base ~ "'") }} as time_value
     from    EALL
 
   {%- elif level == 'minute' %}
 
     {# 1 day = 1440 minutes #}
     {%- for value in range(0, 1440) %}
-      select dateadd(minute, {{ value }}, '{{ base }}') as time_value
+      select {{ dbt_resto.dateadd("minute", value, "'" ~ base ~ "'") }} as time_value
       {%- if not loop.last %}
         union all
       {%- endif %}
@@ -49,7 +49,7 @@
 
     {# 1 day = 24 hours #}
     {%- for value in range(0, 24) %}
-      select dateadd(hour, {{ value }}, '{{ base }}') as time_value
+      select {{ dbt_resto.dateadd("hour", value, "'" ~ base ~ "'") }} as time_value
       {%- if not loop.last %}
         union all
       {%- endif %}

@@ -23,3 +23,6 @@ macros:
   - name: sqlserver__get_format_number
     docs:
       show: false
+  - name: postgres__str_to_date
+    docs:
+      show: false

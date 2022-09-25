@@ -8,6 +8,7 @@
 
 {%- endmacro %}
 
+
 {% macro sqlserver__str_to_date(column_name, pattern) -%}
 
   try_convert(date, convert(varchar, {{column_name}}), {{ dbt_resto.sqlserver__get_format_number(pattern) }})
@@ -41,3 +42,10 @@
                     {#--'yyyymmdd'#}  {{ return(112) }}
 
 {% endmacro %}
+
+
+{% macro postgres__str_to_date(column_name, pattern) -%}
+
+  {{ generate_schema_name(target.schema) }}.try_to_date({{column_name}}, '{{ pattern }}', null::date)
+
+{%- endmacro %}

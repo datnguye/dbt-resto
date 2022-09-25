@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: len
+    description: |
+      Get length of column value
+    docs:
+      show: true
+    arguments:
+      - name: column
+        type: string
+        description: Column name
+
+  - name: default__len
+    docs:
+      show: false
+  - name: postgres__len
+    docs:
+      show: false

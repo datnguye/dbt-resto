@@ -2,7 +2,10 @@ version: 2
 
 models:
   - name: fact_number_scoring
-    description: The scoring of numbers for each day of running
+    description: >
+      The scoring of numbers for each day of running.
+
+      Each run will update/insert data for one day.
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:

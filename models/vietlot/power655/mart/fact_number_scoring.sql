@@ -5,22 +5,24 @@
   )
 }}
 
+{%- set run_date = env_var("DBT_ENV_RUN_DATE", "current_timestamp") -%}
+
 with total_box as (
 
-  select count(1) as no from {{ ref('dim_box') }}
+  select count(1) as no from {{ ref('dim_box') }} where box_date < {{ run_date }}
 
 ),
 
 weighting as (
 
   select   number_value
-          ,(total_box.no - occurrence.occurrence      ) + (datediff(day, occurrence.last_appearance      , current_timestamp)) as weight
-          ,(total_box.no - occurrence.occurrence_pos_1) + (datediff(day, occurrence.last_appearance_pos_1, current_timestamp)) as weight_1
-          ,(total_box.no - occurrence.occurrence_pos_2) + (datediff(day, occurrence.last_appearance_pos_2, current_timestamp)) as weight_2
-          ,(total_box.no - occurrence.occurrence_pos_3) + (datediff(day, occurrence.last_appearance_pos_3, current_timestamp)) as weight_3
-          ,(total_box.no - occurrence.occurrence_pos_4) + (datediff(day, occurrence.last_appearance_pos_4, current_timestamp)) as weight_4
-          ,(total_box.no - occurrence.occurrence_pos_5) + (datediff(day, occurrence.last_appearance_pos_5, current_timestamp)) as weight_5
-          ,(total_box.no - occurrence.occurrence_pos_6) + (datediff(day, occurrence.last_appearance_pos_6, current_timestamp)) as weight_6
+          ,(total_box.no - occurrence.occurrence      ) + (datediff(day, occurrence.last_appearance      , {{ run_date }})) as weight
+          ,(total_box.no - occurrence.occurrence_pos_1) + (datediff(day, occurrence.last_appearance_pos_1, {{ run_date }})) as weight_1
+          ,(total_box.no - occurrence.occurrence_pos_2) + (datediff(day, occurrence.last_appearance_pos_2, {{ run_date }})) as weight_2
+          ,(total_box.no - occurrence.occurrence_pos_3) + (datediff(day, occurrence.last_appearance_pos_3, {{ run_date }})) as weight_3
+          ,(total_box.no - occurrence.occurrence_pos_4) + (datediff(day, occurrence.last_appearance_pos_4, {{ run_date }})) as weight_4
+          ,(total_box.no - occurrence.occurrence_pos_5) + (datediff(day, occurrence.last_appearance_pos_5, {{ run_date }})) as weight_5
+          ,(total_box.no - occurrence.occurrence_pos_6) + (datediff(day, occurrence.last_appearance_pos_6, {{ run_date }})) as weight_6
 
   from    {{ ref('fact_number') }} as occurrence
   join    total_box on 1 = 1
@@ -61,16 +63,8 @@ final as (
 
 )
 
-select   concat(cast(current_timestamp as {{ dbt_resto.type_date() }}),'-',number_value) as fact_key
-        ,cast(current_timestamp as {{ dbt_resto.type_date() }}) as forecast_date
+select   concat(cast({{ run_date }} as {{ dbt_resto.type_date() }}),'-',number_value) as fact_key
+        ,cast({{ run_date }} as {{ dbt_resto.type_date() }}) as forecast_date
         ,*
 
 from    final
-
-where   1 = 1
-
-{% if is_incremental() %}
-
-  and   cast(current_timestamp as {{ dbt_resto.type_date() }}) >= coalesce((select max(forecast_date) from {{ this }}), '1900-01-01')
-
-{% endif %}

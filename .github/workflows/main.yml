@@ -31,19 +31,21 @@ jobs:
       - name: Build and test dbt package
         working-directory: ./integration_tests
         run: |
-          poetry run dbt deps
-          poetry run dbt docs generate
-          poetry run dbt run-operation compile_money_to_words
-          poetry run dbt seed --target snowflake
-          poetry run dbt run --target snowflake
-          poetry run dbt test --target snowflake
+          poetry run dbt deps --target postgres
+          poetry run dbt docs generate --target postgres
+          poetry run dbt build --vars '{fresh_run: true}' --target postgres --exclude package:dbt_resto
         env:
-          SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-          SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-          SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-          SNOWFLAKE_TEST_ROLE: SYSADMIN
-          SNOWFLAKE_TEST_DATABASE: DEMO
-          SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
+          POSTGRES_TEST_HOST: ${{ secrets.POSTGRES_TEST_HOST }}
+          POSTGRES_TEST_USER: ${{ secrets.POSTGRES_TEST_USER }}
+          POSTGRES_TEST_PASS: ${{ secrets.POSTGRES_TEST_PASSWORD }}
+          POSTGRES_TEST_PORT: ${{ secrets.POSTGRES_TEST_PORT }}
+          POSTGRES_TEST_DBNAME: ${{ secrets.POSTGRES_TEST_DBNAME }}
+          # SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+          # SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+          # SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+          # SNOWFLAKE_TEST_ROLE: SYSADMIN
+          # SNOWFLAKE_TEST_DATABASE: DEMO
+          # SNOWFLAKE_TEST_WAREHOUSE: COMPUTE_WH
 
       - name: Save the artifacts
         uses: actions/upload-artifact@v1

@@ -12,3 +12,9 @@ tests:
   - name: default__test_column_values_to_match_regex
     docs:
       show: false
+  - name: sqlserver__if_column_value_to_match_regex
+    docs:
+      show: false
+  - name: postgres__if_column_value_to_match_regex
+    docs:
+      show: false

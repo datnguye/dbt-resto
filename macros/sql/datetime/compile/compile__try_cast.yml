@@ -1,0 +1,5 @@
+version: 2
+
+macros:
+  - name: compile__try_cast
+    description: Provide func to try_to_date only for Postgres SQL

@@ -7,29 +7,37 @@ This is dbt package for everyone
 - Supported warehouses:
     - Snowflake
     - SQL Server
+    - Postgres
 
 ## Developer's Guide
 See [integration_tests](./integration_tests/README.md)
+
+## Environment Variables
+- DBT_ENV_RUN_DATE:
+  - Applicable to models.vietlot.*.mart
+  - Pin the date you would like to run the forecast. By default the value is `current_timestamp`
+  - Set value:
+  ```
+  # windows
+  set DBT_ENV_RUN_DATE='2022-09-24'
+  # linux
+  export DBT_ENV_RUN_DATE='2022-09-24'
+  ```
 
 ## Macros:
 ### get_table_alias ([source](/macros/config/get_table_alias.sql))
   Suffix the table name with your configured variable `table_suffix`.
 
   Usage:
-  ```
+  ```sql
   {{ config(alias=dbt_resto.get_table_alias(this)) }}
   ```
 
 ### money_to_words ([source](/macros/num2words/money_to_words.sql))
   Convert a number (money) to words e.g. 2000 = two thousand
 
-  ** Require **:
-  ```
-  dbt run-operation compile_money_to_words
-  ```
-
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.money_to_words('column', 'en') }} as my_column_name_in_words
   ```
 
@@ -38,19 +46,29 @@ See [integration_tests](./integration_tests/README.md)
 
   If the model has no config `schema` then it will use target.schema to be its schema name, else will use the exact schema name configured.
 
+### dateadd ([source](/macros/sql/datetime/dateadd.sql))
+  Add value to date
+
+  Usage:
+  ```sql
+  select {{ dbt_resto.dateadd('day', 1, 'column') }}
+  ```
+
 ### datepart ([source](/macros/sql/datetime/datepart.sql))
   Get date part
 
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.datepart('column', 'second') }}
   ```
 
 ### get_base_times ([source](/macros/sql/datetime/get_base_times.sql))
   Prepare the select statement of the datetime values in each level = hour, minute.
 
+  NOTE: It can genrate per second level but NOT recommend to do so.
+
   Usage:
-  ```
+  ```sql
   with base_times as (
     {{ dbt_resto.get_base_times('hour') }}
   )
@@ -65,8 +83,10 @@ See [integration_tests](./integration_tests/README.md)
 ### get_time_dimension ([source](/macros/sql/datetime/get_time_dimension.sql))
   Prepare the select statement of all columns required in a time dimension table.
 
+  NOTE: It can genrate per second level but NOT recommend to do so.
+
   Usage:
-  ```
+  ```sql
   # models/my_model.yml
   {{ dbt_resto.get_time_dimension() }}
   ```
@@ -75,7 +95,7 @@ See [integration_tests](./integration_tests/README.md)
   Convert the time part to the string of {HOUR}{MINUTE}{SECOND} e.g. 092733
 
   Usage:
-  ```
+  ```sql
   select {{ dbt_resto.get_time_key('column', parts=['hour','minute','second'], h24=True) }}
   ```
 
@@ -83,8 +103,17 @@ See [integration_tests](./integration_tests/README.md)
   Convert a string formatted in a specific pattern to the date value.
 
   Usage:
-  ```
+  ```sql
   select   {{ dbt_resto.str_to_date('column') }} as date_column
+  from     table
+  ```
+
+### len ([source](/macros/sql/len.sql))
+  Get length of column value
+
+  Usage:
+  ```sql
+  select   {{ dbt_resto.len('column') }} as column_len
   from     table
   ```
 
@@ -96,7 +125,7 @@ See [integration_tests](./integration_tests/README.md)
   Currently support Snowflake only.
 
   Usage:
-  ```
+  ```sql
   models:
     - name: table_name
       columns:
@@ -120,7 +149,7 @@ See [integration_tests](./integration_tests/README.md)
   Usage:
   - Snowflake
 
-    ```
+    ```sql
     {{
       config(
         materialized = 'materialized_view'
@@ -132,7 +161,7 @@ See [integration_tests](./integration_tests/README.md)
     ```
   - SQL Server:
 
-    ```
+    ```sql
     {{
       config(
         materialized = 'materialized_view',

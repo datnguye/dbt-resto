@@ -2,14 +2,17 @@ version: 2
 
 models:
   - name: fact_number_forecast
-    description: Forecasting numbers for the date
+    description: >
+      Forecasting numbers for the date.
+
+      Each run will update/insert data for one day.
     columns:
       - name: forecast_date
         description: Forecasting date
         tests:
           - not_null
           - unique
-      - name: box_date
+      - name: last_box_date
         description: Box date of the last box
         tests:
           - not_null
@@ -17,7 +20,7 @@ models:
         description: Forecast numbers
         tests:
           - not_null
-      - name: box_result_numbers
+      - name: last_box_result_numbers
         description: Box numbers of the last box
         tests:
           - not_null
@@ -25,7 +28,7 @@ models:
         description: Forecast number 1
         tests:
           - not_null
-      - name: box_result_number_1
+      - name: last_box_result_number_1
         description: Box number 1 of the last box
         tests:
           - not_null
@@ -33,7 +36,7 @@ models:
         description: Forecast number 2
         tests:
           - not_null
-      - name: box_result_number_2
+      - name: last_box_result_number_2
         description: Box number 2 of the last box
         tests:
           - not_null
@@ -41,7 +44,7 @@ models:
         description: Forecast number 3
         tests:
           - not_null
-      - name: box_result_number_3
+      - name: last_box_result_number_3
         description: Box number 3 of the last box
         tests:
           - not_null
@@ -49,7 +52,7 @@ models:
         description: Forecast number 4
         tests:
           - not_null
-      - name: box_result_number_4
+      - name: last_box_result_number_4
         description: Box number 4 of the last box
         tests:
           - not_null
@@ -57,7 +60,7 @@ models:
         description: Forecast number 5
         tests:
           - not_null
-      - name: box_result_number_5
+      - name: last_box_result_number_5
         description: Box number 5 of the last box
         tests:
           - not_null
@@ -65,7 +68,7 @@ models:
         description: Forecast number 6
         tests:
           - not_null
-      - name: box_result_number_6
+      - name: last_box_result_number_6
         description: Box number 6 of the last box
         tests:
           - not_null

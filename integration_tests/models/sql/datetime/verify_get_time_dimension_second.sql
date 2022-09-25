@@ -42,6 +42,13 @@
 
 {% else %}
 
+{{
+  config(
+    materialized = ('table' if target.type in ['postgres'] else 'view'),
+    enabled = target.type not in ['postgres'],
+  )
+}}
+
 {{ dbt_resto.get_time_dimension(level='second') }}
 
 {% endif %}

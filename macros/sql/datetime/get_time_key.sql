@@ -23,3 +23,14 @@
   format({{ column }}, '{{ pattern }}')
 
 {% endmacro %}
+
+{% macro postgres__get_time_key(column, parts, h24) %}
+
+  {%- set pattern -%}
+    {%- if 'hour' in parts -%} HH {%- if h24 -%} 24 {%- else -%} 12 {%- endif -%} {%- else -%} 00 {%- endif -%}
+    {%- if 'minute' in parts -%} MI {%- else -%} 00 {%- endif -%}
+    {%- if 'second' in parts -%} SS {%- else -%} 00 {%- endif -%}
+  {%- endset -%}
+  to_char({{ column }}, '{{ pattern }}')
+
+{% endmacro %}
