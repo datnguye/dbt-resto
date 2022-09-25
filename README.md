@@ -36,11 +36,6 @@ See [integration_tests](./integration_tests/README.md)
 ### money_to_words ([source](/macros/num2words/money_to_words.sql))
   Convert a number (money) to words e.g. 2000 = two thousand
 
-  ** Require **:
-  ```
-  dbt run-operation compile_money_to_words
-  ```
-
   Usage:
   ```sql
   select {{ dbt_resto.money_to_words('column', 'en') }} as my_column_name_in_words
