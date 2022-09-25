@@ -9,7 +9,7 @@ with base_times as (
 
   {%- set base_table = kwargs.get('base_table') -%}
   {#-- get_base_times producs WITH statement but SQL Server wont accept WITH inside WITH #}
-  select  dateadd(, value, '{{ base }}') as time_value
+  select  dateadd(second, value, '{{ base }}') as time_value
   from    {{ base_table }}
 
 {%- else %}

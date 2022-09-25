@@ -27,6 +27,10 @@ vars:
 
 on-run-start:
   - > # Reset schema(s) before the build
-    drop schema if exists {{ var('num2words_schema', dbtresto) }} cascade;
-    drop schema if exists {{ target.schema }} cascade;
+    {% if var('fresh_run', false) %}
+
+    drop schema if exists {{ var('num2words_schema', dbtresto) }} {{ 'cascade' if target.type == 'postgres' else '' }};
+    drop schema if exists {{ target.schema }} {{ 'cascade' if target.type == 'postgres' else '' }};
     create schema {{ target.schema }};
+
+    {% endif %}

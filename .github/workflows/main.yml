@@ -37,7 +37,7 @@ jobs:
         env:
           POSTGRES_TEST_HOST: ${{ secrets.POSTGRES_TEST_HOST }}
           POSTGRES_TEST_USER: ${{ secrets.POSTGRES_TEST_USER }}
-          POSTGRES_TEST_PASSWORD: ${{ secrets.POSTGRES_TEST_PASSWORD }}
+          POSTGRES_TEST_PASS: ${{ secrets.POSTGRES_TEST_PASSWORD }}
           POSTGRES_TEST_PORT: ${{ secrets.POSTGRES_TEST_PORT }}
           POSTGRES_TEST_DBNAME: ${{ secrets.POSTGRES_TEST_DBNAME }}
           # SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
