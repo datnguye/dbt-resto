@@ -17,14 +17,13 @@ dispatch:
 vars:
   table_suffix: ""
   num2words_schema: dbtresto
-  vietlot_database: vietlot_power655
 
 models:
   +transient: false
   dbt_resto:
     vietlot:
       power655:
-        +database: "{{ var('vietlot_database', 'vietlot_power655') }}"
+        +database: "{{ var('dbt_resto_power655_database', target.database) }}"
         +materialized: table
         staging:
           +schema: staging
@@ -36,9 +35,9 @@ seeds:
     vietlot:
       power655:
         vietlot_power655_data:
-          +database: "{{ env_var('dbt_vietlot_power655_database', 'vietlot_power655') }}"
-          +schema: "{{ env_var('dbt_vietlot_power655_schema', 'landing') }}"
-          +alias: "{{ env_var('dbt_vietlot_power655_table', 'power655_data') }}"
+          +database: "{{ var('dbt_resto_power655_database', target.database) }}"
+          +schema: "{{ var('dbt_resto_power655_schema', 'landing') }}"
+          +alias: "{{ var('dbt_resto_power655_table', 'power655_data') }}"
           +full_refresh: true
           +column_types:
               box_date:             "{% if target.type in ['sqlserver'] %} datetime       {% else %} timestamp {% endif %}"

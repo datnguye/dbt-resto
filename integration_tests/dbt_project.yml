@@ -23,4 +23,4 @@ models:
 vars:
   table_suffix: _dat
   num2words_schema: dbtresto
-  vietlot_power655_database: vietlot_test
+  dbt_resto_power655_database: tsdb

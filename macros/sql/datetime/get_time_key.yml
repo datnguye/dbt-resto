@@ -23,3 +23,6 @@ macros:
   - name: sqlserver__get_time_key
     docs:
       show: false
+  - name: postgres__get_time_key
+    docs:
+      show: false
