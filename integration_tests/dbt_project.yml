@@ -24,3 +24,9 @@ vars:
   table_suffix: _dat
   num2words_schema: dbtresto
   dbt_resto_power655_database: tsdb
+
+on-run-start:
+  - > # Reset schema(s) before the build
+    drop schema if exists {{ var('num2words_schema', dbtresto) }} cascade;
+    drop schema if exists {{ target.schema }} cascade;
+    create schema {{ target.schema }};

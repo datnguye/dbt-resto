@@ -35,5 +35,5 @@ requires = ["poetry-core>=1.0.0"]
 hook_commit         = "pre-commit install --install-hooks"
 hook_commit_msg     = "pre-commit install --hook-type commit-msg"
 test_snowflake      = "dbt build"
-test_postgres       = "dbt build --target postgres"
 test_sqlserver      = "dbt build --target sqlserver"
+test_postgres       = "dbt build --target postgres --exclude package:dbt_resto"
