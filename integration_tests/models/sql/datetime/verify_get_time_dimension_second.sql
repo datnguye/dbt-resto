@@ -45,6 +45,7 @@
 {{
   config(
     materialized = ('table' if target.type in ['postgres'] else 'view'),
+    enabled = target.type not in ['postgres'],
   )
 }}
 

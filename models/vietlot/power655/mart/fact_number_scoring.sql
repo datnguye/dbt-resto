@@ -5,7 +5,7 @@
   )
 }}
 
-{%- set run_date = env_var("DBT_ENV_RUN_DATE") or "current_timestamp" -%}
+{%- set run_date = env_var("DBT_ENV_RUN_DATE", "current_timestamp") -%}
 
 with total_box as (
 

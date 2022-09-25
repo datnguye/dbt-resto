@@ -69,6 +69,8 @@ See [integration_tests](./integration_tests/README.md)
 ### get_base_times ([source](/macros/sql/datetime/get_base_times.sql))
   Prepare the select statement of the datetime values in each level = hour, minute.
 
+  NOTE: It can genrate per second level but NOT recommend to do so.
+
   Usage:
   ```sql
   with base_times as (
@@ -84,6 +86,8 @@ See [integration_tests](./integration_tests/README.md)
 
 ### get_time_dimension ([source](/macros/sql/datetime/get_time_dimension.sql))
   Prepare the select statement of all columns required in a time dimension table.
+
+  NOTE: It can genrate per second level but NOT recommend to do so.
 
   Usage:
   ```sql
@@ -105,6 +109,15 @@ See [integration_tests](./integration_tests/README.md)
   Usage:
   ```sql
   select   {{ dbt_resto.str_to_date('column') }} as date_column
+  from     table
+  ```
+
+### len ([source](/macros/sql/len.sql))
+  Get length of column value
+
+  Usage:
+  ```sql
+  select   {{ dbt_resto.len('column') }} as column_len
   from     table
   ```
 

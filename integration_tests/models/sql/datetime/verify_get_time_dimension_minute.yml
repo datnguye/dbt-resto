@@ -27,7 +27,7 @@ models:
 
     tests:
       - dbt_utils.expression_is_true:
-          expression: 'len(hour24_minute_name) = 6'
+          expression: "{{ dbt_resto.len('hour24_minute_name') }} = 6"
       - dbt_utils.expression_is_true:
           expression: "right(hour24_minute_name, 2) = '00'"
       - dbt_utils.expression_is_true:
@@ -36,7 +36,7 @@ models:
           expression: "cast(right(left(hour24_minute_name, 4),2) as {{ dbt_resto.type_int() }}) = minute_number"
 
       - dbt_utils.expression_is_true:
-          expression: 'len(hour_minute_name) = 9'
+          expression: "{{ dbt_resto.len('hour_minute_name') }} = 9"
       - dbt_utils.expression_is_true:
           expression: "left(right(hour_minute_name, 5), 2) = '00'"
       - dbt_utils.expression_is_true:

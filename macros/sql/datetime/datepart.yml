@@ -32,3 +32,6 @@ macros:
   - name: sqlserver__datepart
     docs:
       show: false
+  - name: postgres__datepart
+    docs:
+      show: false

@@ -20,3 +20,16 @@
   datepart({{ mapped_part }}, {{ column }})
 
 {% endmacro %}
+
+{% macro postgres__datepart(column, part) %}
+
+  {%- set mapped_part = part -%}
+  {%- if part == 'dayofweek' -%}
+    {%- set mapped_part = 'dow' -%}
+  {%- endif -%}
+  {%- if part == 'dayofyear' -%}
+    {%- set mapped_part = 'doy' -%}
+  {%- endif -%}
+  date_part('{{ mapped_part }}', {{ column }})
+
+{% endmacro %}
