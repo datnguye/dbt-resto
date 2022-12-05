@@ -174,3 +174,6 @@ See [integration_tests](./integration_tests/README.md)
     ```
     - The `ref` relation must go with `include(database=False)`
     - The config must have `unique_key`
+
+## Repo Beats
+![Alt](https://repobeats.axiom.co/api/embed/d40c2fc125162c2a0d9ccf229fcecda3cd84fc2c.svg "Repobeats analytics image")
