@@ -37,7 +37,7 @@ jobs:
       - name: Install mongodb tools
         run: |
           apt update
-          apt install libc6
+          apt -o Apt::Get::Assume-Yes=true install libc6
           wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.7.0.deb
           apt install ./mongodb-database-tools-*-100.7.0.deb
 
