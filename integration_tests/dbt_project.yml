@@ -22,15 +22,4 @@ models:
 
 vars:
   table_suffix: _dat
-  num2words_schema: dbtresto
   dbt_resto_power655_database: tsdb
-
-on-run-start:
-  - > # Reset schema(s) before the build
-    {% if var('fresh_run', false) %}
-
-    drop schema if exists {{ var('num2words_schema', dbtresto) }} {{ 'cascade' if target.type == 'postgres' else '' }};
-    drop schema if exists {{ target.schema }} {{ 'cascade' if target.type == 'postgres' else '' }};
-    create schema {{ target.schema }};
-
-    {% endif %}

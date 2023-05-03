@@ -18,14 +18,6 @@ vars:
   table_suffix: ""
   num2words_schema: dbtresto
 
-on-run-start:
-  - >
-    {% if target.type == 'postgres' %}
-      {{ compile__try_cast() }}
-    {% endif %}
-  - >
-    {{ compile_money_to_words() }}
-
 models:
   +transient: false
   dbt_resto:

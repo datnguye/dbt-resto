@@ -129,7 +129,6 @@ dmypy.json
 .pyre/
 
 # poetry
-poetry.lock
 integration_tests/dbt_packages/
 integration_tests/logs/
 integration_tests/profiles/.user.yml

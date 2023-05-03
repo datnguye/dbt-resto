@@ -1,28 +1,11 @@
 # dbt-resto
 This is dbt package for FUN!
 
-[![integration_tests](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml/badge.svg)](https://github.com/datnguye/dbt-resto/actions/workflows/main.yml)
-
-- Default warehouse: Snowflake
-- Supported warehouses:
-    - Snowflake
-    - SQL Server
-    - Postgres
+Supported warehouses: SQL Server
 
 ## Developer's Guide
 See [integration_tests](./integration_tests/README.md)
 
-## Environment Variables
-- DBT_ENV_RUN_DATE:
-  - Applicable to models.vietlot.*.mart
-  - Pin the date you would like to run the forecast. By default the value is `current_timestamp`
-  - Set value:
-  ```
-  # windows
-  set DBT_ENV_RUN_DATE='2022-09-24'
-  # linux
-  export DBT_ENV_RUN_DATE='2022-09-24'
-  ```
 
 ## Macros:
 ### get_table_alias ([source](/macros/config/get_table_alias.sql))
@@ -31,14 +14,6 @@ See [integration_tests](./integration_tests/README.md)
   Usage:
   ```sql
   {{ config(alias=dbt_resto.get_table_alias(this)) }}
-  ```
-
-### money_to_words ([source](/macros/num2words/money_to_words.sql))
-  Convert a number (money) to words e.g. 2000 = two thousand
-
-  Usage:
-  ```sql
-  select {{ dbt_resto.money_to_words('column', 'en') }} as my_column_name_in_words
   ```
 
 ### generate_schema_name ([source](/macros/override_default/generate_schema_name.sql))
