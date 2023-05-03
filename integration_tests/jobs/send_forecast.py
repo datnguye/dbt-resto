@@ -6,7 +6,7 @@ import pyodbc
 
 def send_email(
     sent_from="service@dbt-resto.com",
-    subject="[Daily Forecast] Power 6x55",
+    subject="[Daily Forecast] Power6x55 Upcoming Numbers",
     body="This is a testing or in-completed stuff",
 ):
     tos = os.environ.get("SENDGRID_MAILING_LIST", "")
@@ -43,12 +43,15 @@ def get_data():
             "from       mart.fact_number_forecast "
             "order by   forecast_date desc"
         )
-        for row in cursor:
-            return row["forecast_numbers"]
+        row = cursor.fetchone()
+        return row[0]
     except Exception as e:
         print(e)
 
-    return "ERROR"
+    return (
+        "(Something wrong happened! "
+        "Check out the Github Workflow run of 'power 6/55 daily forecast' for more details)"
+    )
 
 
 body = get_data()
