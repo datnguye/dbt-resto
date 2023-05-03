@@ -25,7 +25,7 @@ jobs:
       SQLSERVER_USER: sa
       SQLSERVER_PASSWORD: 5atyaNadell@
       SQLSERVER_SCHEMA: docs
-      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      # MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
     steps:
       - uses: actions/checkout@v3
@@ -34,10 +34,10 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install mongodb tools
-        run: |
-          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.7.0.deb
-          apt install ./mongodb-database-tools-*-100.7.0.deb
+      # - name: Install mongodb tools
+      #   run: |
+      #     wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.7.0.deb
+      #     apt install ./mongodb-database-tools-*-100.7.0.deb
 
       - name: Install dbt
         run: |
@@ -53,12 +53,20 @@ jobs:
           path: .cache
 
       - name: Data Ingestion
-        run: |
-          mongoexport --uri="${MONGODB_URI}" \
-            --collection=data \
-            --type=csv \
-            --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at \
-            --out=./seeds/vietlot/power655/vietlot_power655_data.csv
+        uses: tezz-io/mongoexport@v1
+        with:
+          uri: ${{ secrets.MONGODB_URI }}
+          export: ./seeds/vietlot/power655/vietlot_power655_data.csv
+          db: jackpot_power6x55
+          collection: data
+
+      # - name: Data Ingestion
+      #   run: |
+      #     mongoexport --uri="${MONGODB_URI}" \
+      #       --collection=data \
+      #       --type=csv \
+      #       --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at \
+      #       --out=./seeds/vietlot/power655/vietlot_power655_data.csv
 
       - name: Data Transformation
         run: poetry run dbt build -s package:dbt_resto
