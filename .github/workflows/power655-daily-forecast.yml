@@ -36,10 +36,8 @@ jobs:
 
       - name: Install mongodb tools
         run: |
-          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.7.0.deb
+          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.7.0.deb
           apt install ./mongodb-database-tools-*-100.7.0.deb
-          apt update
-          apt -o Apt::Get::Assume-Yes=true install libc6 libc6-dev
 
       - name: Install dbt
         run: |
