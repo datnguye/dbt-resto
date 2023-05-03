@@ -61,9 +61,14 @@ jobs:
             --out=./seeds/vietlot/power655/vietlot_power655_data.csv
 
       - name: Data Transformation
-        run: poetry run dbt run -s package:dbt_resto
+        run: |
+          poetry run dbt seed
+          poetry run dbt run -s +fact_number_forecast
         working-directory: integration_tests
 
       - name: Notification
         run: poetry run python jobs/send_forecast.py
         working-directory: integration_tests
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_MAILING_LIST: ${{ secrets.SENDGRID_MAILING_LIST }}
