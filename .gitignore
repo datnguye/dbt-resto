@@ -134,3 +134,4 @@ integration_tests/logs/
 integration_tests/profiles/.user.yml
 .secrets
 vietlot_power655_data.csv
+seeds/vietlot/power655/vietlot_power655_data.csv

@@ -15,6 +15,6 @@ integration_tests:
       schema: "{{env_var('SQLSERVER_SCHEMA')}}"
       user: "{{env_var('SQLSERVER_USER')}}"
       password: "{{env_var('SQLSERVER_PASSWORD')}}"
-      threads: 4
+      threads: 10
       encrypt: true
       trust_cert: True

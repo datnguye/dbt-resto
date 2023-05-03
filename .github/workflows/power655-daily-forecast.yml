@@ -26,6 +26,7 @@ jobs:
       SQLSERVER_PASSWORD: 5atyaNadell@
       SQLSERVER_SCHEMA: docs
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      DBT_PROFILES_DIR: ./profiles # working-directory: integration_tests
 
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +43,6 @@ jobs:
       - name: Install dbt
         run: |
           pip install poetry
-          export DBT_PROFILES_DIR=./profiles
           poetry install --no-dev
           poetry run dbt deps
         working-directory: integration_tests
