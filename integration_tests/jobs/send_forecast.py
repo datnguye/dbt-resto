@@ -33,10 +33,16 @@ def get_data():
         f"Database={os.environ.get('SQLSERVER_DATABASE')};"
         f"UID={os.environ.get('SQLSERVER_USER')};"
         f"PWD={os.environ.get('SQLSERVER_PASSWORD')};"
+        "encrypt=True;"
+        "TrustServerCertificate=True"
     )
     cursor = cnxn.cursor()
     try:
-        cursor.execute("select * from mart.fact_number_forecast")
+        cursor.execute(
+            "select     top 1 forecast_numbers"
+            "from       mart.fact_number_forecast"
+            "order by   forecast_date desc"
+        )
         for row in cursor:
             return row["forecast_numbers"]
     except Exception as e:
