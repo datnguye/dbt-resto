@@ -33,8 +33,8 @@ def get_data():
         f"Database={os.environ.get('SQLSERVER_DATABASE')};"
         f"UID={os.environ.get('SQLSERVER_USER')};"
         f"PWD={os.environ.get('SQLSERVER_PASSWORD')};"
-        "encrypt=True;"
-        "TrustServerCertificate=True"
+        "encrypt=Yes;"
+        "TrustServerCertificate=Yes;"
     )
     cursor = cnxn.cursor()
     try:
