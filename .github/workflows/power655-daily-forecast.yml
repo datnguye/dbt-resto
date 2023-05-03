@@ -24,7 +24,7 @@ jobs:
       SQLSERVER_DATABASE: msdb
       SQLSERVER_USER: sa
       SQLSERVER_PASSWORD: 5atyaNadell@
-      SQLSERVER_SCHEMA: docs
+      SQLSERVER_SCHEMA: resto
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       DBT_PROFILES_DIR: ./profiles # working-directory: integration_tests
 

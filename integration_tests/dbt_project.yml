@@ -4,7 +4,7 @@ profile: integration_tests
 
 version: '1.0'
 config-version: 2
-require-dbt-version: ">=1.0.0"
+require-dbt-version: ">=1.3.0"
 
 model-paths: ["models"]
 analysis-paths: ["analysis"]
@@ -21,5 +21,5 @@ models:
   transient: true
 
 vars:
-  table_suffix: _dat
-  dbt_resto_power655_database: tsdb
+  table_suffix: ""
+  dbt_resto_power655_database: msdb
