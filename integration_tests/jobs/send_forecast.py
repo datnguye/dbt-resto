@@ -46,4 +46,4 @@ def get_data():
 
 
 body = get_data()
-send_email(subject="[power6x55_crawler] SUCCESS to load", body=body)
+send_email(body=body)
