@@ -28,12 +28,20 @@ jobs:
       SQLSERVER_USER: sa
       SQLSERVER_PASSWORD: 5atyaNadell@
       SQLSERVER_SCHEMA: docs
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
           python-version: '3.9.6'
+
+      - name: Install mongodb tools
+        run: |
+          echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main' >> /etc/apk/repositories
+          echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/community' >> /etc/apk/repositories
+          apk update
+          apk add mongodb-tools
 
       - name: Install dbt
         run: |
@@ -43,10 +51,23 @@ jobs:
           poetry run dbt deps
         working-directory: integration_tests
 
-      - name: Transformation
+      - uses: actions/cache@v2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+
+      - name: Data Ingestion
+        run: |
+          mongoexport --uri="${MONGODB_URI}" \
+            --collection=data \
+            --type=csv \
+            --fields=box_date,box_id,box_name,box_result_numbers,box_results,created_at,updated_at \
+            --out=./seeds/vietlot/power655/vietlot_power655_data.csv
+
+      - name: Data Transformation
         run: poetry run dbt build -s package:dbt_resto
         working-directory: integration_tests
 
-      - name: Report
-        run: poetry run python jobs/send_email.py
+      - name: Notification
+        run: poetry run python jobs/send_forecast.py
         working-directory: integration_tests

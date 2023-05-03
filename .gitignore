@@ -132,3 +132,5 @@ dmypy.json
 integration_tests/dbt_packages/
 integration_tests/logs/
 integration_tests/profiles/.user.yml
+.secrets
+vietlot_power655_data.csv
