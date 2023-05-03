@@ -39,8 +39,8 @@ def get_data():
     cursor = cnxn.cursor()
     try:
         cursor.execute(
-            "select     top 1 forecast_numbers"
-            "from       mart.fact_number_forecast"
+            "select     top 1 forecast_numbers "
+            "from       mart.fact_number_forecast "
             "order by   forecast_date desc"
         )
         for row in cursor:
