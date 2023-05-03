@@ -9,14 +9,11 @@ jobs:
   build-and-alert:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        sqlserver_version: ["2022"]
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
     services:
       sqlserver:
-        image: ghcr.io/dbt-msft/dbt-sqlserver:server-${{ matrix.sqlserver_version }}
+        image: ghcr.io/dbt-msft/dbt-sqlserver:server-2022
         env:
           ACCEPT_EULA: 'Y'
           SA_PASSWORD: 5atyaNadell@
