@@ -61,7 +61,7 @@ jobs:
             --out=./seeds/vietlot/power655/vietlot_power655_data.csv
 
       - name: Data Transformation
-        run: poetry run dbt build -s package:dbt_resto
+        run: poetry run dbt run -s package:dbt_resto
         working-directory: integration_tests
 
       - name: Notification
