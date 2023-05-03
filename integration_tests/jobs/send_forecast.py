@@ -1,6 +1,6 @@
 import os
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from sendgrid.helpers.mail import Mail, To
 import pyodbc
 
 
@@ -9,7 +9,7 @@ def send_email(
     subject="[Daily Forecast] Power6x55 Upcoming Numbers",
     body="This is a testing or in-completed stuff",
 ):
-    tos = os.environ.get("SENDGRID_MAILING_LIST", "")
+    tos = [To(x) for x in os.environ.get("SENDGRID_MAILING_LIST", "").split(';')]
     message = Mail(
         from_email=sent_from,
         to_emails=tos,
