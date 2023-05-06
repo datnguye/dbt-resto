@@ -31,16 +31,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/cache@v2
+        with:
+          key: poetry-cache-${{ runner.os }}-${{ github.ref }}
+          path: ~/.cache/pypoetry
+
       - name: Install dbt
         run: |
           poetry install --no-dev
           poetry run dbt deps
         working-directory: integration_tests
-
-      - uses: actions/cache@v2
-        with:
-          key: poetry-cache-${{ runner.os }}-${{ github.ref }}
-          path: ~/.cache/pypoetry
 
       - name: Data Ingestion
         run: |
