@@ -1,0 +1,41 @@
+---
+name: publish docker images for ci/cd
+on:
+  push:
+    paths:
+      - 'devops/**'
+      - '.github/workflows/publish-docker.yml'
+    branches:
+      - 'main'
+
+jobs:
+  publish-sqlserver:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        mssql_version: ["2022"]
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: log in to the container registry
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push docker image
+        uses: docker/build-push-action@v3.2.0
+        with:
+          context: devops
+          build-args: MSSQL_VERSION=${{ matrix.mssql_version }}
+          file: devops/sqlserver.Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ghcr.io/${{ github.repository }}:server-${{ matrix.mssql_version }}
