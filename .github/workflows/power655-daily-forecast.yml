@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
+      image: ghcr.io/datnguye/dbt-resto:power655forecast-2023
     services:
       sqlserver:
-        image: ghcr.io/dbt-msft/dbt-sqlserver:server-2022
+        image: ghcr.io/datnguye/dbt-resto:sqlserver-2022
         env:
           ACCEPT_EULA: 'Y'
           SA_PASSWORD: 5atyaNadell@
@@ -30,27 +30,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install mongodb tools
-        run: |
-          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.7.0.deb
-          apt install ./mongodb-database-tools-*-100.7.0.deb
 
       - name: Install dbt
         run: |
-          pip install poetry
           poetry install --no-dev
           poetry run dbt deps
         working-directory: integration_tests
 
       - uses: actions/cache@v2
         with:
-          key: ${{ github.ref }}
-          path: .cache
+          key: poetry-cache-${{ runner.os }}-${{ github.ref }}
+          path: ~/.cache/pypoetry
 
       - name: Data Ingestion
         run: |

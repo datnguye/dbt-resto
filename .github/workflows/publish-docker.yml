@@ -38,4 +38,35 @@ jobs:
           file: devops/sqlserver.Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository }}:server-${{ matrix.mssql_version }}
+          tags: ghcr.io/${{ github.repository }}:sqlserver-${{ matrix.mssql_version }}
+
+  publish-power655forecast-2023:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python_version: ["3.10"]
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: log in to the container registry
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push docker image
+        uses: docker/build-push-action@v3.2.0
+        with:
+          context: devops
+          build-args: PYTHON_VERSION=${{ matrix.python_version }}
+          file: devops/power655forecast.Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ghcr.io/${{ github.repository }}:power655forecast-2023

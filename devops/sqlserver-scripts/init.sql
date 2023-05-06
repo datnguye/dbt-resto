@@ -1,0 +1,8 @@
+IF NOT EXISTS(SELECT * FROM sys.database_principals WHERE name = '$(TEST_USER_1)')
+    CREATE USER [$(TEST_USER_1)] WITHOUT LOGIN;
+
+IF NOT EXISTS(SELECT * FROM sys.database_principals WHERE name = '$(TEST_USER_2)')
+    CREATE USER [$(TEST_USER_2)] WITHOUT LOGIN;
+
+IF NOT EXISTS(SELECT * FROM sys.database_principals WHERE name = '$(TEST_USER_3)')
+    CREATE USER [$(TEST_USER_3)] WITHOUT LOGIN;
