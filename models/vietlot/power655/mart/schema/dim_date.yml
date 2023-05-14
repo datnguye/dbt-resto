@@ -27,7 +27,22 @@ models:
         tests:
           - not_null
       - name: box_month_name
-        description: Box's month name
+        description: |
+          Box's month name. List of values:
+
+          - "Jan"
+          - "Feb"
+          - "Mar"
+          - "Apr"
+          - "May"
+          - "Jun"
+          - "Jul"
+          - "Aug"
+          - "Sep"
+          - "Oct"
+          - "Nov"
+          - "Dec"
+
         tests:
           - not_null
       - name: box_year
