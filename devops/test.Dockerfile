@@ -33,11 +33,11 @@ RUN apt-get update && \
 RUN pip install poetry
 
 # install dbt
-COPY pyproject.toml .
+COPY integration_tests/ integration_tests/
+WORKDIR /integration_tests
 RUN poetry install
 
 # setup dbt dependencies
-COPY integration_tests/ .
 RUN export DBT_PROFILES_DIR=./profiles
 
 ENV SQLSERVER_HOST ${SQLSERVER_HOST}
