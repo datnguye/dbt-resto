@@ -1,7 +1,7 @@
 ARG PYTHON_VERSION="3.10"
 FROM python:${PYTHON_VERSION}-bullseye
 
-LABEL org.opencontainers.image.description "Image dedicated base setup for Testing"
+LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
 
 # Setup dependencies for pyodbc
 RUN apt-get update && \
