@@ -35,7 +35,9 @@ jobs:
         uses: docker/build-push-action@v3.2.0
         with:
           context: ./
-          build-args: PYTHON_VERSION=${{ matrix.python_version }} DBT_VERSION=${{ matrix.dbt_version }}
+          build-args: |
+            "PYTHON_VERSION=${{ matrix.python_version }}"
+            "DBT_VERSION=${{ matrix.dbt_version }}"
           file: devops/test.Dockerfile
           push: true
           platforms: linux/amd64
