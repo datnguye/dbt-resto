@@ -36,9 +36,9 @@ RUN pip install poetry
 COPY pyproject.toml .
 RUN poetry install
 
-# setup dbt profile
-RUN mkdir ~/.dbt
-COPY profiles/profiles.yml ~/.dbt/profiles.yml
+# setup dbt dependencies - context at integration_tests dir
+COPY . .
+RUN export DBT_PROFILES_DIR=./profiles
 
 ENV SQLSERVER_HOST ${SQLSERVER_HOST}
 ENV SQLSERVER_PORT ${SQLSERVER_PORT}
@@ -48,4 +48,5 @@ ENV SQLSERVER_USER ${SQLSERVER_USER}
 ENV SQLSERVER_PASSWORD ${SQLSERVER_PASSWORD}
 
 HEALTHCHECK CMD poetry run dbt debug
+
 RUN poetry run dbt deps
