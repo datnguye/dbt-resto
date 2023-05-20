@@ -1,0 +1,36 @@
+name: dbt integration tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/${{ github.repository }}-test:dbt-py3.10
+
+    services:
+      sqlserver:
+        image: ghcr.io/${{ github.repository }}:sqlserver-2022
+        env:
+          ACCEPT_EULA: 'Y'
+          SA_PASSWORD: 5atyaNadell@
+
+    env:
+      SQLSERVER_HOST: sqlserver
+      SQLSERVER_PORT: 1433
+      SQLSERVER_DATABASE: msdb
+      SQLSERVER_USER: sa
+      SQLSERVER_PASSWORD: 5atyaNadell@
+      SQLSERVER_SCHEMA: PR_${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run test
+        run: |
+          poetry run dbt build
+        working-directory: integration_tests
