@@ -1,4 +1,5 @@
-ARG PYTHON_VERSION="3.10" DBT_VERSION="1.3"
+ARG PYTHON_VERSION
+ARG DBT_VERSION
 FROM python:${PYTHON_VERSION}-bullseye
 
 LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
@@ -30,4 +31,4 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # install poetry
-RUN pip install "dbt-sqlserver~=${DBT_VERSION}.0"
+RUN pip install dbt-sqlserver~=${DBT_VERSION}.0
