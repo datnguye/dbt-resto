@@ -33,7 +33,7 @@ RUN apt-get update && \
 RUN pip install poetry
 
 # install dbt
-COPY integration_tests/ integration_tests/
+COPY . .
 WORKDIR /integration_tests
 RUN poetry install
 
