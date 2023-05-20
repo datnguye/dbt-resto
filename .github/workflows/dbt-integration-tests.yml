@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     container:
       image: ghcr.io/${{ github.repository }}-test:dbt-py3.10
 
@@ -26,11 +25,13 @@ jobs:
       SQLSERVER_USER: sa
       SQLSERVER_PASSWORD: 5atyaNadell@
       SQLSERVER_SCHEMA: PR_${{ github.sha }}
+      DBT_PROFILES_DIR: ./profiles
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run test
+      - name: Install dbt
         run: |
-          poetry run dbt build
+          dbt deps
+          dbt build
         working-directory: integration_tests

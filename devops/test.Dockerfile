@@ -1,4 +1,5 @@
 ARG PYTHON_VERSION="3.10"
+ARG DBT_VERSION="1.3.0"
 FROM python:${PYTHON_VERSION}-bullseye
 
 LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
@@ -30,22 +31,4 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # install poetry
-RUN pip install poetry
-
-# install dbt
-COPY . .
-WORKDIR /integration_tests
-RUN poetry install
-
-# setup dbt dependencies
-RUN export DBT_PROFILES_DIR=./profiles
-
-ENV SQLSERVER_HOST ${SQLSERVER_HOST}
-ENV SQLSERVER_PORT ${SQLSERVER_PORT}
-ENV SQLSERVER_DATABASE ${SQLSERVER_DATABASE}
-ENV SQLSERVER_SCHEMA ${SQLSERVER_SCHEMA}
-ENV SQLSERVER_USER ${SQLSERVER_USER}
-ENV SQLSERVER_PASSWORD ${SQLSERVER_PASSWORD}
-
-HEALTHCHECK CMD poetry run dbt debug
-RUN poetry run dbt deps
+RUN pip install "dbt-sqlserver~=${DBT_VERSION}"
