@@ -1,8 +1,7 @@
-ARG DBT_VERSIONX
+ARG DBT_VERSION
 ARG PYTHON_VERSION
 
 FROM python:${PYTHON_VERSION}-bullseye
-ENV DBT_VERSIONX_ENV=${DBT_VERSIONX}
 
 # LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
 
@@ -35,4 +34,4 @@ ENV DBT_VERSIONX_ENV=${DBT_VERSIONX}
 # # install poetry
 # RUN pip install "dbt-sqlserver~=${DBT_VERSION_ENV}.0"
 RUN echo "PYTHON_VERSION=${PYTHON_VERSION}"
-RUN echo "DBT_VERSION=${DBT_VERSIONX_ENV}"
+RUN echo "DBT_VERSION=${DBT_VERSION}"
