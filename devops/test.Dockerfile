@@ -2,6 +2,7 @@ ARG DBT_VERSION="1.3"
 ARG PYTHON_VERSION="3.10"
 
 FROM python:${PYTHON_VERSION}-bullseye
+ENV DBT_VERSION=${DBT_VERSION}
 
 # LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
 
