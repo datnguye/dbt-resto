@@ -1,37 +1,35 @@
-ARG DBT_VERSION
 ARG PYTHON_VERSION
-
 FROM python:${PYTHON_VERSION}-bullseye
 
-# LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
+ARG DBT_VERSION
 
-# # Setup dependencies for pyodbc
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends \
-#       apt-transport-https \
-#       curl  \
-#       gnupg2 \
-#       unixodbc-dev \
-#       lsb-release && \
-#     apt-get autoremove -yqq --purge && \
-#     apt-get clean &&  \
-#     rm -rf /var/lib/apt/lists/*
+LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
 
-# # enable Microsoft package repo
-# RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-# RUN curl -sL https://packages.microsoft.com/config/debian/$(lsb_release -sr)/prod.list | tee /etc/apt/sources.list.d/msprod.list
+# Setup dependencies for pyodbc
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      apt-transport-https \
+      curl  \
+      gnupg2 \
+      unixodbc-dev \
+      lsb-release && \
+    apt-get autoremove -yqq --purge && \
+    apt-get clean &&  \
+    rm -rf /var/lib/apt/lists/*
 
-# # install ODBC driver 18
-# ENV ACCEPT_EULA=Y
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends \
-#       msodbcsql18 \
-#       mssql-tools18 && \
-#     apt-get autoremove -yqq --purge && \
-#     apt-get clean &&  \
-#     rm -rf /var/lib/apt/lists/*
+# enable Microsoft package repo
+RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl -sL https://packages.microsoft.com/config/debian/$(lsb_release -sr)/prod.list | tee /etc/apt/sources.list.d/msprod.list
 
-# # install poetry
-# RUN pip install "dbt-sqlserver~=${DBT_VERSION_ENV}.0"
-RUN echo "PYTHON_VERSION=${PYTHON_VERSION}"
-RUN echo "DBT_VERSION=${DBT_VERSION}"
+# install ODBC driver 18
+ENV ACCEPT_EULA=Y
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      msodbcsql18 \
+      mssql-tools18 && \
+    apt-get autoremove -yqq --purge && \
+    apt-get clean &&  \
+    rm -rf /var/lib/apt/lists/*
+
+# install poetry
+RUN pip install "dbt-sqlserver~=${DBT_VERSION_ENV}.0"
