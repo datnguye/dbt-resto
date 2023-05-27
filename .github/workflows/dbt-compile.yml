@@ -1,12 +1,12 @@
-name: dbt integration tests
+name: dbt compile
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  compile:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.repository }}-test:dbt-py3.10
@@ -30,20 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
-        id: download
+      - name: Compile
+        run: |
+          dbt deps
+          dbt compile
+        working-directory: integration_tests
+
+      - uses: actions/upload-artifact@v3
         with:
           name: dbt-artifact
-          path: integration_tests/base/
-
-      - name: Install deps
-        run: dbt deps
-        working-directory: integration_tests
-
-      - name: Slim Test
-        run: dbt build -s state:modified+ --state ./base
-        working-directory: integration_tests
-
-      - name: Full Test
-        run: dbt build -s +fact_number_forecast
-        working-directory: integration_tests
+          path: integration_tests/target/
