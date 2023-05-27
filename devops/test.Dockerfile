@@ -32,4 +32,4 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # install poetry
-RUN pip install "dbt-sqlserver~=${DBT_VERSION_ENV}.0"
+RUN pip install "dbt-sqlserver~=${DBT_VERSION}.0"
