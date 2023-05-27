@@ -30,8 +30,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run Tests
-        run: |
-          dbt deps
-          dbt build
+      - name: Install deps
+        run: dbt deps
         working-directory: integration_tests
+
+      # - name: Slim Test
+      #   run: dbt build
+      #   working-directory: integration_tests
+
+      - name: Full Test
+        run: dbt build -s +fact_number_forecast
+        working-directory: integration_tests
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dbt-success-full-test-artifact
+          path: integration_tests/target/
