@@ -32,3 +32,5 @@ RUN apt-get update && \
 
 # install poetry
 RUN pip install "dbt-sqlserver~=1.3.0" # temp
+RUN echo "PYTHON_VERSION=${PYTHON_VERSION}"
+RUN echo "DBT_VERSION=${DBT_VERSION}"
