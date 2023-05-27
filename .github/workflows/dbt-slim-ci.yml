@@ -1,4 +1,4 @@
-name: dbt integration tests
+name: dbt slim ci
 
 on:
   workflow_dispatch:
@@ -30,9 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
+      - uses: dawidd6/action-download-artifact@v2
         id: download
         with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: dbt-compile.yml
           name: dbt-artifact
           path: integration_tests/base/
 
