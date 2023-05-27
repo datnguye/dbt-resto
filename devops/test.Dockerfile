@@ -4,6 +4,8 @@ FROM python:${PYTHON_VERSION}-bullseye
 
 LABEL org.opencontainers.image.description "Image dedicated base setup for dbt Testing"
 
+ENV DBT_VERSION_ENV=${DBT_VERSION}
+
 # Setup dependencies for pyodbc
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -31,6 +33,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # install poetry
-RUN pip install "dbt-sqlserver~=1.3.0" # temp
+# RUN pip install "dbt-sqlserver~=${DBT_VERSION_ENV}.0"
 RUN echo "PYTHON_VERSION=${PYTHON_VERSION}"
-RUN echo "DBT_VERSION=${DBT_VERSION}"
+RUN echo "DBT_VERSION=${DBT_VERSION_ENV}"
