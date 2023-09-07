@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: power655_raw
+    database: "{{ var('dbt_resto_power655_database', target.database) }}"
+    schema: "{{ var('dbt_resto_power655_schema', 'landing') }}"
+    tables:
+      - name: power655_data

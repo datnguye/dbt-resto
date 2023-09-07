@@ -1,0 +1,22 @@
+version: 2
+
+exposures:
+
+  - name: power655_forecast
+    label: Power655 Forecast
+    type: dashboard
+    maturity: high
+    description: >
+      Forecasting of Power 6/55
+
+    depends_on:
+      - ref('dim_box')
+      - ref('dim_prize')
+      - ref('dim_date')
+      - ref('fact_number')
+      - ref('fact_result')
+      - source('power655_raw', 'power655_data')
+
+    owner:
+      name: Dat Nguyen
+      email: datnguyen.it09@gmail.com
